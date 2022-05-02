@@ -1,0 +1,46 @@
+\documentclass[12pt, a4paper, portrait]{report}
+
+% Title Page
+\title{Fahrerassistenz- und Sicherheitssysteme}
+\author{Nico Makowe}
+
+
+%packages
+\usepackage[german]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{anysize}
+\usepackage{titlesec}
+\usepackage{gensymb}
+\usepackage{trfsigns}
+\usepackage{multirow}
+\usepackage{xcolor}
+\usepackage{geometry}
+\usepackage{float}
+\usepackage{svg}
+\usepackage{pdflscape}
+\usepackage{rotating}
+\usepackage{enumitem}
+\usepackage{datetime}
+\usepackage[onehalfspacing]{setspace}
+\usepackage[backend=bibtex, style=verbose-ibid]{biblatex}
+\usepackage{siunitx}
+
+\addbibresource{literature/bibliographie.bib}
+
+\include{options/commands.tex}
+\include{options/format.tex}
+
+\begin{document}
+
+\include{chapter/00_opening.tex} %
+\include{chapter/01_introduction.tex} 	% 0.5 Seiten
+\include{chapter/02_basics.tex} 		% 3 Seiten
+\include{chapter/03_main.tex}			% 3 Seiten
+\include{chapter/04_summary.tex} 		% 0.5 Seiten
+
+\setstretch{1.0}
+\printbibliography[title=Literaturverzeichnis, heading=bibintoc]
+
+\end{document}          

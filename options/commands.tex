@@ -1,0 +1,55 @@
+\newcounter{UseCaseNumber}
+\setcounter{UseCaseNumber}{1}
+
+\newcommand{\usecaseSmall}[2]{
+	\subsection*{Anwendungsfall \arabic{UseCaseNumber}: #1}
+	\begin{tabular}{|p{6cm}|p{18.5cm}|}
+		\hline
+		Name & #1 \\
+		\hline
+		Kurzbeschreibung & #2 \\
+		\hline
+	\end{tabular}
+	\stepcounter{UseCaseNumber}
+}
+
+\newcommand{\usecaseBigA}[6]{%
+	\def\usecaseArgA{#1}%
+	\def\usecaseArgB{#2}%
+	\def\usecaseArgC{#3}%
+	\def\usecaseArgD{#4}%
+	\def\usecaseArgE{#5}%
+	\def\usecaseArgF{#6}%
+}
+
+\newcommand{\usecaseBigB}[6]{
+	\subsection*{Anwendungsfall \arabic{UseCaseNumber}: \usecaseArgA}
+	\begin{tabular}{|p{6cm}|p{18.5cm}|}
+		\hline
+		Name & \usecaseArgA \\
+		\hline
+		Kurzbeschreibung & \usecaseArgB \\
+		\hline
+		fachliches Ziel & \usecaseArgC \\
+		\hline
+		Akteure & \usecaseArgD \\
+		\hline
+		Auslöser & \usecaseArgE \\
+		\hline
+		Vorbedingung & \usecaseArgF \\
+		\hline
+		Nachbedingung & #1 \\
+		\hline
+		verwendete Informationen & #2 \\
+		\hline
+		Ergebnis & #3 \\
+		\hline
+		Ablauf & #4 \\
+		\hline
+		Abläufe in Ausnahmefällen & #5 \\
+		\hline
+		Verweise & #6 \\
+		\hline
+	\end{tabular}
+	\stepcounter{UseCaseNumber}
+}
