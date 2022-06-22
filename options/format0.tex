@@ -1,0 +1,159 @@
+% format before document start
+
+\geometry{
+	a4paper,
+	left=25mm,
+	right=25mm,
+	top=25mm,
+	bottom=30mm,
+	footskip=5mm
+	}
+
+% global text font
+\renewcommand{\familydefault}{lmss}
+
+%turn of page numbering
+\pagenumbering{gobble}
+
+% prevent single lines on top or bottom of page
+\widowpenalty = 10000
+\clubpenalty = 10000
+
+% formats for headings
+\titleformat{\chapter}
+{\normalfont\LARGE\bfseries}{\thechapter.}{16pt}{}
+%\titlespacing{\chapter}{0pt}{-35pt}{10pt}
+\titlespacing{\chapter}{0pt}{-20pt}{10pt}
+
+
+\titleformat{\section}
+{\normalfont\Large\bfseries}{\thesection}{14pt}{}
+\titlespacing{\section}{0pt}{10pt}{5pt}
+
+\titleformat{\subsection}
+{\normalfont\normalsize\bfseries}{\thesubsection}{12pt}{}
+\titlespacing{\subsection}{0pt}{10pt}{10pt}
+
+\titleformat{\subsubsection}
+{\normalfont\normalsize\bfseries}{\thesubsubsection}{12pt}{}
+\titlespacing{\subsubsection}{0pt}{10pt}{10pt}
+
+\titleformat{\paragraph}[runin]
+{\normalfont\normalsize\bfseries}{\theparagraph}{12pt}{}
+\titlespacing{\paragraph}{0pt}{10pt}{5pt}
+
+\titleformat{\subparagraph}[runin]
+{\normalfont\normalsize\bfseries}{\thesubparagraph}{12pt}{}
+\titlespacing{\subparagraph}{\parindent}{10pt}{5pt}
+
+\pagenumbering{arabic}
+
+\newdateformat{dateGerman}{\twodigit{\THEDAY}.\twodigit{\THEMONTH}.\THEYEAR}
+
+\renewcommand{\baselinestretch}{1.5} 
+
+% HEADER and FOOTER
+
+\newcommand{\kopfzeile}{Personalentwicklung und Ausbildung Feuerbach \\ Technische Studiengänge an der DHBW}
+
+\newcommand{\fusszeile}{PEA3-Fe - betriebliche Ausbildung technische Studiengänge der DHBW  \\ \copyright \text{ }Alle Rechte bei der Robert Bosch GmbH, auch für den Fall von Schutzrechtsanmeldungen. Jede Verfügungsbefugnis, wie Kopier- und Weitergaberecht bei uns.}
+
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+
+%this command set the header and footer to the style of the first few pages
+\newcommand{\fancyhfStyleOpening}[0]{
+	
+	% current style
+	\fancyhf{}
+	\fancyhead[L]{\small \kopfzeile}
+	\fancyhead[R]{
+		\begin{textblock*}{4.0cm}(78.0mm, -8.0mm)
+			\includegraphics[height=1.1cm]{images/shared/DHBW-Logo.png}
+		\end{textblock*}
+		\begin{textblock*}{4.0cm}(120.0mm, -16.0mm)
+			\includegraphics[height=2.0cm]{images/shared/Bosch-Logo-Kopfzeile.png}
+		\end{textblock*}
+	}
+	\fancyfoot[L]{
+		\tiny \fusszeile
+		\vspace{2mm}
+		\begin{tabular*}{16cm}{@{\extracolsep{\fill}}l>{
+					\raggedleft}p{8cm}}
+			{\small Stand: \today} & 
+			{\small Seite \thepage}
+		\end{tabular*}
+	}
+	
+	% default stlye
+	\fancypagestyle{plain}{
+		\fancyhf{}
+		\fancyhead[L]{\small \kopfzeile}
+		\fancyhead[R]{
+			\begin{textblock*}{4.0cm}(78.0mm, -8.0mm)
+				\includegraphics[height=1.1cm]{images/shared/DHBW-Logo.png}
+			\end{textblock*}
+			\begin{textblock*}{4.0cm}(120.0mm, -16.0mm)
+				\includegraphics[height=2.0cm]{images/shared/Bosch-Logo-Kopfzeile.png}
+			\end{textblock*}
+		}
+		\fancyfoot[L]{
+			\tiny \fusszeile
+			\vspace{2mm}
+			\begin{tabular*}{16cm}{@{\extracolsep{\fill}}l>{
+						\raggedleft}p{8cm}}
+				{\small Stand: \today} & 
+				{\small Seite \thepage}
+			\end{tabular*}
+		}
+	}
+}
+
+%this command overrides the existing plain style with the style for the content pages
+\newcommand{\fancyhfStyleContent}[0]{
+	
+	% current style
+	\fancyhf{}
+	\fancyhead[L]{\small \kopfzeile}
+	\fancyhead[R]{
+		\begin{textblock*}{4.0cm}(78.0mm, -8.0mm)
+			\includegraphics[height=1.1cm]{images/shared/DHBW-Logo.png}
+		\end{textblock*}
+		\begin{textblock*}{4.0cm}(120.0mm, -16.0mm)
+			\includegraphics[height=2.0cm]{images/shared/Bosch-Logo-Kopfzeile.png}
+		\end{textblock*}
+	}
+	\fancyfoot[L]{
+		\tiny \fusszeile
+		\vspace{2mm}
+		\begin{tabular*}{16cm}{@{\extracolsep{\fill}}l>{
+					\raggedleft}p{8cm}}
+			{\small Stand: \today} & 
+			{\small Seite \thepage\text{ von }\pageref{LastPage}}
+		\end{tabular*}
+	}
+	
+	% default style
+	\fancypagestyle{plain}{
+		\fancyhf{}
+		\fancyhead[L]{\small \kopfzeile}
+		\fancyhead[R]{
+			\begin{textblock*}{4.0cm}(78.0mm, -8.0mm)
+				\includegraphics[height=1.1cm]{images/shared/DHBW-Logo.png}
+			\end{textblock*}
+			\begin{textblock*}{4.0cm}(120.0mm, -16.0mm)
+				\includegraphics[height=2.0cm]{images/shared/Bosch-Logo-Kopfzeile.png}
+			\end{textblock*}
+		}
+		\fancyfoot[L]{
+			\tiny \fusszeile
+			\vspace{2mm}
+			\begin{tabular*}{16cm}{@{\extracolsep{\fill}}l>{
+					\raggedleft}p{8cm}}
+					{\small Stand: \today} & 
+					{\small Seite \thepage\text{ von }\pageref{LastPage}}
+			\end{tabular*}
+		}
+	}
+}
