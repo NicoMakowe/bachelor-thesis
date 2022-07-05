@@ -1,1 +1,57 @@
-\chapter{Grundlagen}
+\chapter{Theoretische Grundlagen}
+\fancyhfStyleContent{}
+
+
+\section{Digitale Zwillinge}
+\section{Aspektmodelle}
+\section{Resource Description Framework (RDF)}
+
+Das Resource Description Framework (RDF) ist ein Modell, das zur Beschreibung von Daten eingesetzt wird \cite[vgl.][]{w3c2014rdf}. Die Datenstruktur formt einen gerichteten Graphen, der sich aus Knoten und Verbindungen (Kanten) zwischen der Knoten zusammensetzt. Ein Ziel von RDF ist, einen Standard schaffen, der emöglicht, beliebige Informationen in maschinenlesbarer Form darzustellen \cite[vgl.][Sektion 2]{w3c2014rdfprimer}.
+
+Zu RDF gehören mehrere Spezifikationen, die beispielsweise das Datenmodell oder eine Syntax zur Beschreibung von Daten festlegen. Das World Wide Web Consortium (W3O) veröffentlicht diese Spezifikationen und viele weitere unter dem Begriff "Semantic Web". Dieser Ausdruck beschreibt die Vision, dass beliebige Daten im Internet bereitgestellt, ausgetauscht und verarbeitet werden können. \cite[vgl.][]{w3c2014semanticweb}
+
+\subsection{Datenmodell}
+
+Ein RDF-Graph setzt sich aus einer beliebig großen Menge sogenannter Triples zusammen. \cite[vgl.][Sektion 3.1]{w3c2014rdfconcepts} Ein einzelnes Triple ist formal gesehen ein 3-Tupel mit folgenden Elementen:
+\begin{enumerate}
+	\item Das erste Element bezeichnet man als Subjekt. Es repräsentiert den Startknoten, von dem eine Verbindung ausgeht.
+	\item Das zweite Element nennt man Prädikat. Es stellt die konkrete Verbindung dar.
+	\item Das dritte Element bezeichnet man als Objekt. Dies ist der Endknoten, auf den die Verbindung zeigt. 
+\end{enumerate}
+
+Somit sind Subjekt und Objekt immer ein Knoten, das Prädikat ist immer eine Kante.
+
+Es gibt drei Arten von Knoten:
+\begin{enumerate}
+	\item Als Resource bezeichnet man einen Knoten, der sowohl Ein- als auch Ausgangsknoten besitzen kann und durch einen URI identifiziert.
+	\item Blank Nodes sind Knoten, die Ein- und Ausgangsknoten besitzen können, aber nicht durch einen URI identifiziert sind.
+	\item Literale sind Werte wie Ganzzahlen oder Strings und haben keine ausgehenden Kanten.	
+\end{enumerate}
+Kanten werden immer durch einen URI identifiziert.
+
+In Tabelle \ref{tab:triples} sind Beispiele für Triples zu sehen, die zusammen einen Graphen formen. 
+
+\begin{table}
+	\centering
+	\begin{tabular}{c|c|c}
+		Subjekt & Prädikat & Objekt \\ \hline
+		rel:Anton & rel:hatKind & rel:Berta \\
+		rel:Anton & rel:name & "Anton" \\
+		rel:Berta & rel:hatAlter & 34 \\
+		rel:Berta & rel:wohntIn & \_:Stadt \\
+		\_:Stadt & rel:name & "'Stuttgart"' \\
+	\end{tabular}
+	\label{tab:triples}
+	\caption[Beispiele für Triples]{Beispiele für Triples. Die Abkürzung rel: wird als Abkürzung für einen URI verwendet. Anstatt "'rel:Anton"' könnte auch "'\textless http://relationships.com\#Anton\textgreater"' stehen.}
+\end{table}
+
+
+
+\subsection{Turtle Syntax}
+
+
+Die Syntax, mit der RDF-Graphen beschrieben werden können, heißt "Terse RDF Triple Language" (TTL) und wird aufgrund der Aussprache als "Turtle" bezeichnet. \cite[vgl.][]{w3c2014turtle}
+
+
+\section{Software Defined Vehicle}
+
