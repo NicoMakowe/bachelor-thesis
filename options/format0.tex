@@ -19,12 +19,22 @@
 \widowpenalty = 10000
 \clubpenalty = 10000
 
+% spaces
+\setlength{\parskip}{2pt} % space after praragraph
+\setlist{noitemsep, topsep=3pt} % space before and between enumerations, item lists
+
+% spave before and after equations
+\setlength{\abovedisplayskip}{0pt}
+\setlength{\belowdisplayskip}{0pt}
+\setlength{\abovedisplayshortskip}{0pt}
+\setlength{\belowdisplayshortskip}{0pt}
+
+
 % formats for headings
 \titleformat{\chapter}
 {\normalfont\LARGE\bfseries}{\thechapter.}{16pt}{}
 %\titlespacing{\chapter}{0pt}{-35pt}{10pt}
 \titlespacing{\chapter}{0pt}{-20pt}{10pt}
-
 
 \titleformat{\section}
 {\normalfont\Large\bfseries}{\thesection}{14pt}{}

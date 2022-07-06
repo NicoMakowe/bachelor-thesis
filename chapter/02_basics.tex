@@ -8,7 +8,7 @@
 
 Das Resource Description Framework (RDF) ist ein Modell, das zur Beschreibung von Daten eingesetzt wird \cite[vgl.][]{w3c2014rdf}. Die Datenstruktur formt einen gerichteten Graphen, der sich aus Knoten und Verbindungen (Kanten) zwischen der Knoten zusammensetzt. Ein Ziel von RDF ist, einen Standard schaffen, der emöglicht, beliebige Informationen in maschinenlesbarer Form darzustellen \cite[vgl.][Sektion 2]{w3c2014rdfprimer}.
 
-Zu RDF gehören mehrere Spezifikationen, die beispielsweise das Datenmodell oder eine Syntax zur Beschreibung von Daten festlegen. Das World Wide Web Consortium (W3O) veröffentlicht diese Spezifikationen und viele weitere unter dem Begriff "Semantic Web". Dieser Ausdruck beschreibt die Vision, dass beliebige Daten im Internet bereitgestellt, ausgetauscht und verarbeitet werden können. \cite[vgl.][]{w3c2014semanticweb}
+Zu RDF gehören mehrere Spezifikationen, die beispielsweise das Datenmodell oder eine Syntax zur Beschreibung von Daten festlegen. Das World Wide Web Consortium (W3O) veröffentlicht diese Spezifikationen und viele weitere unter dem Begriff "`Semantic Web"'. Dieser Ausdruck beschreibt die Vision, dass beliebige Daten im Internet bereitgestellt, ausgetauscht und verarbeitet werden können. \cite[vgl.][]{w3c2014semanticweb}
 
 \subsection{Datenmodell}
 
@@ -29,28 +29,37 @@ Es gibt drei Arten von Knoten:
 \end{enumerate}
 Kanten werden immer durch einen URI identifiziert.
 
-In Tabelle \ref{tab:triples} sind Beispiele für Triples zu sehen, die zusammen einen Graphen formen. 
+In Tabelle \ref{tab:triples} sind Beispiele für Triples zu sehen, die zusammen einen Graphen formen. Die beiden URIs \textless urn:relation\#Anton\textgreater und \textless urn:relation\#Berta\textgreater sind Resourcen. \_:Stadt ist eine Blank Node und die Werte 34, "`Anton"' und "`Stuttgart"' sind Literale.
 
 \begin{table}
 	\centering
 	\begin{tabular}{c|c|c}
 		Subjekt & Prädikat & Objekt \\ \hline
-		rel:Anton & rel:hatKind & rel:Berta \\
-		rel:Anton & rel:name & "Anton" \\
-		rel:Berta & rel:hatAlter & 34 \\
-		rel:Berta & rel:wohntIn & \_:Stadt \\
-		\_:Stadt & rel:name & "'Stuttgart"' \\
+		\textless urn:relation\#Anton\textgreater & \textless urn:relation\#name\textgreater & "'Anton"' \\
+		\textless urn:relation\#Anton\textgreater & \textless urn:relation\#hatKind\textgreater & \textless urn:relation\#Berta\textgreater \\
+		\textless urn:relation\#Berta\textgreater & \textless urn:relation\#hatAlter\textgreater & 34 \\
+		\textless urn:relation\#Berta\textgreater & \textless urn:relation\#wohntIn\textgreater & \_:Stadt \\
+		\_:Stadt & \textless urn:relation\#name\textgreater & "'Stuttgart"' \\
 	\end{tabular}
 	\label{tab:triples}
-	\caption[Beispiele für Triples]{Beispiele für Triples. Die Abkürzung rel: wird als Abkürzung für einen URI verwendet. Anstatt "'rel:Anton"' könnte auch "'\textless http://relationships.com\#Anton\textgreater"' stehen.}
+	\caption{Beispiele für Triples}
 \end{table}
 
 
 
-\subsection{Turtle Syntax}
+\subsection{RDF Syntax}
 
+N-Triples ist eine Syntax, bei der beliebig viele Triples hintereinander aufgelistet werden \cite[vgl.][]{w3c2014ntriples}. Die Grammatik ist in Form von regulären Ausdrücken definiert. Ein Ausschnitt davon ist in den Formeln \ref{eq:ntriple} zu sehen. Jedes n-Triples-Dokument setzt sich demnach aus abwechselnden Triples und Zeilenumbrüchen (EOL, End-Of-Line) zusammen. Ein Triple besteht aus Subjekt, Prädikat und Objekt sowie einem Punkt am Ende. N-Triples-Dateien werden mit der Dateiendung "`.nt"' versehen.
+\begin{align}
+	\text{ntripleDoc} & ::= \text{triple?}\text{ } (\text{EOL triple})\mbox{*} \text{ EOL?} \label{eq:ntriple}\\
+	\text{triple} & ::= \text{subject } \text{predicate } \text{object } \text{"'."'} \nonumber
+\end{align}
+Eine zweite Syntax, mit der RDF-Graphen beschrieben werden können, heißt "`Terse RDF Triple Language"' (TTL) und wird aufgrund der ähnlich klingenden Aussprache auch als "`Turtle"' bezeichnet  \cite[vgl.][]{w3c2014turtle}. Turtle-Dateien besitzen die Datei-Endung "`.ttl"'.
+Die Sprache, die von der TTL-Grammatik beschrieben wird, ist eine Obermenge der N-Triples-Sprache. Das heißt, jede gültige N-Triples-Datei ist auch eine gültige Turtle-Datei. Zusätzlich erlaubt die Turtle-Syntax weitere Schreibweisen, die es ermöglichen, Graphen übersichtlicher und mit weniger Text darzustellen. Durch syntaktische Äquivalenzumformungen lässt sich jede Turtle-Datei wieder auf eine Liste von Triples zurückführen. Somit kann jeder beliebige Graph sowohl mit N-Triples als auch mit Turtle beschrieben werden.
 
-Die Syntax, mit der RDF-Graphen beschrieben werden können, heißt "Terse RDF Triple Language" (TTL) und wird aufgrund der Aussprache als "Turtle" bezeichnet. \cite[vgl.][]{w3c2014turtle}
+Im Folgenden werden einige wichtige Syntax-Merkmale genauer vorgestellt.
+\paragraph{Namespaces}
+\paragraph{title}
 
 
 \section{Software Defined Vehicle}
