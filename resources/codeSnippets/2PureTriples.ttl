@@ -1,0 +1,5 @@
+<urn:relation#Anton> <urn:relation#name> "Anton" .
+<urn:relation#Anton> <urn:relation#hatKind> <urn:relation#Berta> .
+<urn:relation#Berta> <urn:relation#hatAlter> 34 .
+<urn:relation#Berta> <urn:relation#wohntIn> _:Stadt .
+_:Stadt <urn:relation#name> "Stuttgart" .

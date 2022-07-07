@@ -23,12 +23,20 @@
 \setlength{\parskip}{2pt} % space after praragraph
 \setlist{noitemsep, topsep=3pt} % space before and between enumerations, item lists
 
-% spave before and after equations
+
+
+% spave before and after equations. Does not do anything yet
 \setlength{\abovedisplayskip}{0pt}
 \setlength{\belowdisplayskip}{0pt}
 \setlength{\abovedisplayshortskip}{0pt}
 \setlength{\belowdisplayshortskip}{0pt}
 
+% listings
+\lstset{frame=single, firstline=1, numbers=left, numberstyle=\small, basicstyle=\small\ttfamily, captionpos=b}
+
+
+\renewcommand{\lstlistingname}{Quellcode}
+\renewcommand{\lstlistlistingname}{Quellcodeverzeichnis}
 
 % formats for headings
 \titleformat{\chapter}
@@ -80,10 +88,10 @@
 	\fancyhead[L]{\small \kopfzeile}
 	\fancyhead[R]{
 		\begin{textblock*}{4.0cm}(78.0mm, -8.0mm)
-			\includegraphics[height=1.1cm]{images/shared/DHBW-Logo.png}
+			\includegraphics[height=1.1cm]{resources/logos/DHBW-Logo.png}
 		\end{textblock*}
 		\begin{textblock*}{4.0cm}(120.0mm, -16.0mm)
-			\includegraphics[height=2.0cm]{images/shared/Bosch-Logo-Kopfzeile.png}
+			\includegraphics[height=2.0cm]{resources/logos/Bosch-Logo-Kopfzeile.png}
 		\end{textblock*}
 	}
 	\fancyfoot[L]{
@@ -102,10 +110,10 @@
 		\fancyhead[L]{\small \kopfzeile}
 		\fancyhead[R]{
 			\begin{textblock*}{4.0cm}(78.0mm, -8.0mm)
-				\includegraphics[height=1.1cm]{images/shared/DHBW-Logo.png}
+				\includegraphics[height=1.1cm]{resources/logos/DHBW-Logo.png}
 			\end{textblock*}
 			\begin{textblock*}{4.0cm}(120.0mm, -16.0mm)
-				\includegraphics[height=2.0cm]{images/shared/Bosch-Logo-Kopfzeile.png}
+				\includegraphics[height=2.0cm]{resources/logos/Bosch-Logo-Kopfzeile.png}
 			\end{textblock*}
 		}
 		\fancyfoot[L]{
@@ -128,10 +136,10 @@
 	\fancyhead[L]{\small \kopfzeile}
 	\fancyhead[R]{
 		\begin{textblock*}{4.0cm}(78.0mm, -8.0mm)
-			\includegraphics[height=1.1cm]{images/shared/DHBW-Logo.png}
+			\includegraphics[height=1.1cm]{resources/logos/DHBW-Logo.png}
 		\end{textblock*}
 		\begin{textblock*}{4.0cm}(120.0mm, -16.0mm)
-			\includegraphics[height=2.0cm]{images/shared/Bosch-Logo-Kopfzeile.png}
+			\includegraphics[height=2.0cm]{resources/logos/Bosch-Logo-Kopfzeile.png}
 		\end{textblock*}
 	}
 	\fancyfoot[L]{
@@ -150,10 +158,10 @@
 		\fancyhead[L]{\small \kopfzeile}
 		\fancyhead[R]{
 			\begin{textblock*}{4.0cm}(78.0mm, -8.0mm)
-				\includegraphics[height=1.1cm]{images/shared/DHBW-Logo.png}
+				\includegraphics[height=1.1cm]{resources/logos/DHBW-Logo.png}
 			\end{textblock*}
 			\begin{textblock*}{4.0cm}(120.0mm, -16.0mm)
-				\includegraphics[height=2.0cm]{images/shared/Bosch-Logo-Kopfzeile.png}
+				\includegraphics[height=2.0cm]{resources/logos/Bosch-Logo-Kopfzeile.png}
 			\end{textblock*}
 		}
 		\fancyfoot[L]{

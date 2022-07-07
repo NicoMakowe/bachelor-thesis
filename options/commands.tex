@@ -1,6 +1,15 @@
 \newcounter{UseCaseNumber}
 \setcounter{UseCaseNumber}{1}
 
+\newcommand{\listingfile}[2][]{
+	\vspace{5pt}
+	\setstretch{1.0}
+	\begin{minipage}{\linewidth}
+		\lstinputlisting[#1]{#2}
+	\end{minipage}
+	\setstretch{1.5}
+}
+
 \newcommand{\usecaseSmall}[2]{
 	\subsection*{Anwendungsfall \arabic{UseCaseNumber}: #1}
 	\begin{tabular}{|p{6cm}|p{18.5cm}|}
