@@ -1,0 +1,9 @@
+# Knoten mit drei ausgehenden Kanten mit gleichen URIs
+rel:Anton rel:name "Anton" ;
+          rel:hatKind rel:Berta ;
+          rel:hatKind rel:Caesar ;
+          rel:hatKind rel:Dora .
+
+# Knoten mit RDF-Liste
+rel:Anton rel:name "Anton" ;
+          rel:hatKinder ( rel:Berta rel:Caesar rel:Dora ) .

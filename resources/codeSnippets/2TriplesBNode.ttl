@@ -1,6 +1,7 @@
 @prefix rel: <urn:relation#> .
 
 rel:Anton rel:name "Anton" ;
-          rel:hatKind rela:Berta .
-rel:Berta rel:hatAlter 34 ;
-          rel:wohntIn [ rel:name "Stuttgart" ] .
+          rel:hatKind rel:Berta .
+rel:Berta rel:hatVater rel:Anton ;
+          rel:geboren [ rel:ort "Stuttgart" ; 
+                        rel:datum "1980-01-01" ] .
