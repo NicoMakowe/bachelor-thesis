@@ -3,7 +3,7 @@
 
 
 \section{Digitale Zwillinge}
-\section{Aspektmodelle}
+\section{Aspekte}
 \section{Resource Description Framework (RDF)}
 
 Das Resource Description Framework (RDF) ist ein Modell, das zur Beschreibung von Daten eingesetzt wird \cite[vgl.][]{w3c2014rdf}. Die Datenstruktur formt einen gerichteten Graphen, der sich aus Knoten und Verbindungen (Kanten) zwischen der Knoten zusammensetzt. Ein Ziel von RDF ist, einen Standard schaffen, der emöglicht, beliebige Informationen in maschinenlesbarer Form darzustellen \cite[vgl.][Sektion 2]{w3c2014rdfprimer}.
@@ -29,14 +29,14 @@ Es gibt drei Arten von Knoten:
 \end{enumerate}
 Kanten werden immer durch einen URI identifiziert.
 
-In Tabelle \ref{tab:triples} sind Beispiele für Triples zu sehen, die zusammen einen Graphen formen. Die beiden URIs \textless urn:relation\#Anton\textgreater und \textless urn:relation\#Berta\textgreater sind Resourcen. \_:Geburtstag ist eine Blank Node und die Werte "`Anton"', "`Stuttgart"' und "`1980-01-01"'sind Literale.
+In Tabelle \ref{tab:triples} sind Beispiele für Triples zu sehen, die zusammen einen Graphen formen. Die beiden URIs \lstinline|<urn:relation\#Anton>| und \lstinline|<urn:relation\#Berta>| sind Resourcen. \lstinline|_:Geburtstag| ist ein Blank Node und die Werte \lstinline|"Anton"|, \lstinline|"Stuttgart"| und \lstinline|"1980-01-01"| sind Literale.
 
 \input{resources/tables/2TripleList.tex}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.7\linewidth]{resources/figures/rdfGraph}
-	\caption{}
+	\caption{Visualisierung des Graphen, der von den Triples in Tabelle \ref{tab:triples} beschrieben wird. }
 	\label{fig:rdfgraph}
 \end{figure}
 
@@ -54,7 +54,7 @@ Eine zweite Syntax, mit der RDF-Graphen beschrieben werden können, heißt "`Ter
 Die Sprache, die von der TTL-Grammatik beschrieben wird, ist eine Obermenge der N-Triples-Sprache. Das heißt, jede gültige N-Triples-Datei ist auch eine gültige Turtle-Datei. Zusätzlich erlaubt die Turtle-Syntax weitere Schreibweisen, die es ermöglichen, Graphen übersichtlicher und mit weniger Text darzustellen. Durch syntaktische Äquivalenzumformungen lässt sich jede Turtle-Datei wieder auf eine Liste von Triples zurückführen. Somit kann jeder beliebige Graph sowohl mit N-Triples als auch mit Turtle beschrieben werden. Im Folgenden werden einige wichtige Syntax-Merkmale genauer vorgestellt.
 \paragraph{Namespaces}
 
-Die URIs in einer Datei beginnen häufig mit dem gleichen Zeichenfolge. Benannte Knoten unterscheiden sich meist nur am letzten Abschnitt des URIs. Namespaces ermögichen, eine abgekürzte Schreibweise für URIs zu verwenden, um die Datei übersichtlicher zu machen. Ein Namespace wird mit dem Schlüsselwort \lstinline|@prefix| festgelegt, wie in Quellcode \ref{lst:ttl-namespace} zu sehen ist.
+Die URIs in einer Datei beginnen häufig mit dem gleichen Zeichenfolge. Benannte Knoten unterscheiden sich meist nur am letzten Abschnitt des URIs. Namespaces ermöglichen, eine abgekürzte Schreibweise für URIs zu verwenden, um die Datei übersichtlicher zu machen. Ein Namespace wird mit dem Schlüsselwort \lstinline|@prefix| festgelegt, wie in Quellcode \ref{lst:ttl-namespace} zu sehen ist.
 \listingfile[caption=TTL-Datei mit Namespace, label=lst:ttl-namespace]{resources/codeSnippets/2TriplesNamespace.ttl}
 
 \paragraph{Liste von Prädikaten}
@@ -68,7 +68,7 @@ Auch für Blank Nodes gibt es eine Kurzschreibweise. Im Beispiel wird anstatt \l
 \listingfile[caption=TTL-Datei mit verschachtelter Blank Node, label=lst:ttl-blank-node]{resources/codeSnippets/2TriplesBNode.ttl}
 
 \paragraph{RDF-Listen}
-Es gibt die Möglichkeit, von einem Knoten mehrere ausgehende Kanten zu spezifizieren, die den gleichen URN haben (siehe Quellcode \ref{lst:ttl-list} oben). Diese Modellierungmöglichkeit kann sehr einfach eingesetzt werden, aber hat den Nachteil dass die Reihenfolge der Objekte nicht spezifiziert ist. Würde man in einem Computerprogramm alle Kinder von Anton in einer Liste sammeln, ist die Reihenfolge der Elemente abhängig von der Implementierung. 
+Es gibt die Möglichkeit, von einem Knoten mehrere ausgehende Kanten zu spezifizieren, die den gleichen URN haben (siehe Quellcode \ref{lst:ttl-list} oben). Diese Modellierungmöglichkeit kann sehr einfach eingesetzt werden, aber hat den Nachteil dass die Reihenfolge der Objekte nicht spezifiziert ist. Das heißt, wenn ein Computerprogramm  die Turtle-Datei einliest, ist die Reihenfolge der Elemente zufällig bzw. abhängig von der Implementierung.
 
 Möchte man eine Liste definieren, bei der die Reihenfolge festgelegt ist, kann man RDF-Listen einsetzen (siehe Quellcode \ref{lst:ttl-list} unten). Bei der Syntax werden runde Klammern eingesetzt. Wenn Die TTL-Datei geparst wird, ist die Liste als Binärbaum dargestellt (siehe \ref{fig:rdflist}). Jeweils ein Ausgang des Knotens zeigt auf ein Listenelement, der andere Ausgang auf den Rest der Liste. Das Ende der Liste wird durch ein spezielles Objekt (rdf:nil) markiert.
 
@@ -82,5 +82,6 @@ Möchte man eine Liste definieren, bei der die Reihenfolge festgelegt ist, kann 
 
 
 
+\section{BAMM Aspect Meta Model}
 \section{Software Defined Vehicle}
 
