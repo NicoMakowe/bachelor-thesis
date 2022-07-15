@@ -13,7 +13,7 @@ Ein digitaler Zwilling ist ein virtuelles Abbild eines Objekts oder eines Prozes
 	\item Eine bestimmte Komponente im Fahrzeug, beispielsweise ein einzelner Sitz.
 \end{itemize}
 
-Die Einsatzgebiete digitaler Zwillinge sind vielseitig. Ein Typischer Anwendungsfall ist das Überwachen und Auswerten von Daten. Ein Computerprogramm könnte über einen digitalen Zwilling auf die Laufzeitinformationen einer Maschine zugreifen und somit die Auslastung errechnen. Die gesammelten 
+Die Einsatzgebiete digitaler Zwillinge sind vielseitig. Ein Typischer Anwendungsfall ist das Überwachen und Auswerten von Daten. Ein Computerprogramm könnte über einen digitalen Zwilling auf die Laufzeitinformationen einer Maschine zugreifen und somit die Auslastung errechnen. Die gesammelten Daten können als Prognose für die Zukunft genutzt werden, um die Produktion zu optimieren.
 
 Ein weiteres Einsatzgebiet ist das zentrale Abspeichern von Ereignissen einer Maschine, wie Wartungsarbeiten, Reparaturen oder Fehlermeldungen. Ziel dabei ist, den gesamten Lebenszyklus eines Produkts zu überwachen, um beispielsweise die Zuverlässigkeit zu verbessern.
 
@@ -21,7 +21,26 @@ Es ist möglich eine Echt-Zeit-Kommunikation zwischen einem Digitalem Zwilling u
 
 
 
-\section{Aspekte}
+\section{Digital Twin System}
+
+
+Die Implementierungen digitaler Zwillinge können sehr unterschiedlich sein und es gibt keinen allgemein verbreiteten Standard. Ein firmeninterner Ansatz zur Vereinheitlichung digitaler Zwillinge ist das Digital Twin System (kurz: DTS). Der Bosch Smantic Stack, eine Abteilung von Bosch, ist für die Entwicklung und Bereitstellung des Systems verantwortlich.
+
+Das Grundkonzept des Digital Twin Systems ist, dass sich ein Digital Zwilling aus Aspekten zusammensetzt. Ein Aspekt ist eine bestimmte Sichtweise auf das repräsentierte Objekt. Entwickelt man einen digitalen Zwilling einer Maschine, könnten man beispielsweise folgende Aspekte definieren. 
+\begin{itemize}
+	\item Einen Aspekt für den aktuellen Maschinenzustand, der Informationen über aktuelle Eigenschaften und Sensorwerten darstellt.
+	\item Einen Aspekt für die Historie der Maschine, der den Wartungsverlauf zeigt.
+	\item Einen Aspekt, der alle Produkte darstellt, die von der Maschine gefertigt werden können.
+\end{itemize}
+
+Die konkrete Implementierung eines Aspekts ist eine API, also eine Schnittstelle, auf die andere Programme zugreifen können, um Daten anzufragen. Diese Programme werden als Lösung (englisch: Solution) bezeichnet und setzen die genannten Anwendungsfälle um.
+
+Der Datenaustausch zwischen Aspekt und der Software Lösung findet auf Basis eines festgelegten Protokolls statt. Im Digital Twin System stehen aktuell die beiden Netzwerkprotokolle HTTP und MQTT zur Verfügung. HTTP wird zur Übertragung von Text beliebiger Länge eingesetzt und war ursprünglich für das Versenden von HTML-Nachrichten konzipiert \cite{bernerslee1991http}. Heutzutage wird es für alle möglichen Nachrichtenarten wie Bilddateien, JavaScript oder JSON benutzt.
+
+Um eine problemlose Kommunikation der beiden Teilnehmer zu ermöglichen, sollte zusätzlich zum Übertragungsprotokoll ein Datenmodell vorliegen, das die Struktur und den 
+
+
+
 \section{Resource Description Framework (RDF)}
 
 Das Resource Description Framework (RDF) ist ein Modell, das zur Beschreibung von Daten eingesetzt wird \cite[vgl.][]{w3c2014rdf}. Die Datenstruktur formt einen gerichteten Graphen, der sich aus Knoten und Verbindungen (Kanten) zwischen der Knoten zusammensetzt. Ein Ziel von RDF ist, einen Standard schaffen, der emöglicht, beliebige Informationen in maschinenlesbarer Form darzustellen \cite[vgl.][Sektion 2]{w3c2014rdfprimer}.
