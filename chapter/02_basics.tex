@@ -24,7 +24,7 @@ Es ist möglich eine Echt-Zeit-Kommunikation zwischen einem Digitalem Zwilling u
 \section{Digital Twin System}
 
 
-Die Implementierungen digitaler Zwillinge können sehr unterschiedlich sein und es gibt keinen allgemein verbreiteten Standard. Ein firmeninterner Ansatz zur Vereinheitlichung digitaler Zwillinge ist das Digital Twin System (kurz: DTS). Der Bosch Smantic Stack, eine Abteilung von Bosch, ist für die Entwicklung und Bereitstellung des Systems verantwortlich.
+Die Implementierungen digitaler Zwillinge können sehr unterschiedlich sein und es gibt keinen allgemein verbreiteten Standard. Ein firmeninterner Ansatz zur Vereinheitlichung digitaler Zwillinge ist das Digital Twin System (DTS). Der Bosch Smantic Stack, eine Abteilung von Bosch, ist für die Entwicklung und Bereitstellung des Systems verantwortlich. Ein Teil des Digital Twin Systems ist nur kommerziell verfügbar. Ein weiterer Teil wird als Open-Source-Projekt in der Open Manufacturing Platform (OMP) veröffentlicht. Dies ist eine Vereinigung vieler Unternehmen (z.B. BMW, Bosch, Microsoft, ZF), die das Ziel hat, die Fertigung von Produkten voranzutreiben. \cite[vgl.][]{omp2020omp}
 
 Das Grundkonzept des Digital Twin Systems ist, dass sich ein Digital Zwilling aus Aspekten zusammensetzt. Ein Aspekt ist eine bestimmte Sichtweise auf das repräsentierte Objekt. Entwickelt man einen digitalen Zwilling einer Maschine, könnten man beispielsweise folgende Aspekte definieren. 
 \begin{itemize}
@@ -33,11 +33,16 @@ Das Grundkonzept des Digital Twin Systems ist, dass sich ein Digital Zwilling au
 	\item Einen Aspekt, der alle Produkte darstellt, die von der Maschine gefertigt werden können.
 \end{itemize}
 
-Die konkrete Implementierung eines Aspekts ist eine API, also eine Schnittstelle, auf die andere Programme zugreifen können, um Daten anzufragen. Diese Programme werden als Lösung (englisch: Solution) bezeichnet und setzen die genannten Anwendungsfälle um.
+Die konkrete Implementierung eines Aspekts ist eine API, also eine Schnittstelle, auf die andere Programme zugreifen können, um Daten anzufragen. Diese Programme werden als Lösung (englisch: Solution) bezeichnet und setzen die genannten Anwendungsfälle (Überwachen, Auswerten, Steuern usw.) um.
 
-Der Datenaustausch zwischen Aspekt und der Software Lösung findet auf Basis eines festgelegten Protokolls statt. Im Digital Twin System stehen aktuell die beiden Netzwerkprotokolle HTTP und MQTT zur Verfügung. HTTP wird zur Übertragung von Text beliebiger Länge eingesetzt und war ursprünglich für das Versenden von HTML-Nachrichten konzipiert \cite{bernerslee1991http}. Heutzutage wird es für alle möglichen Nachrichtenarten wie Bilddateien, JavaScript oder JSON benutzt.
+Der Datenaustausch zwischen Aspekt und der Software Lösung findet auf Basis eines festgelegten Protokolls statt. Im Digital Twin System stehen aktuell die beiden Nachrichtenprotokolle HTTP und MQTT zur Verfügung. 
 
-Um eine problemlose Kommunikation der beiden Teilnehmer zu ermöglichen, sollte zusätzlich zum Übertragungsprotokoll ein Datenmodell vorliegen, das die Struktur und den 
+HTTP steht für "`Hyptertext Transfer Protokol"' wird zur Übertragung von Text beliebiger Länge eingesetzt. Ursprünglich war es für das Versenden von HTML-Nachrichten konzipiert \cite{bernerslee1991http}. Heutzutage wird es für alle möglichen Nachrichtenarten eingesetzt. In Webanwendungen werden zusätzlich zur HTML-Nachricht beispielsweise Bilddateien, Stylesheets (z.B. CSS) oder JavaScript-Dateien versendet. Zum reinen Informationsaustausch nutzt man häufig das JSON-Format.
+Beim Datenaustausch gibt es immer zwei Teilnehmer: einen Server und einen Client. Der Client kann eine Anfrage in Form einer Nachricht an den Server stellen. Der Server antwortet mit einer zweiten Nachricht. Die Beziehung zwischen den beiden Kommunikationspartnern ist asymmetrisch, da der Server keine Anfrage an den Client stellen kann. Des weiteren ist die Kommunikation zustandslos, das heißt auf eine Anfrage folgt genau eine Antwort. HTTP ist zustandslos, das heißt der Server behandelt jede Anfrage isoliert und unabhängig davon, welche Anfragen davor gesendet wurden. \cite[vgl.][]{fielding1999http}
+
+MQTT ist kurz für "`Message Queuing Telemetry Transport"'. Es ist ein einfaches Nachrichten-Transport-Protokoll, das auf das Prinzip publish/subscribe basiert. Ein Teilnehmer kann Ereignisse abonnieren (subscribe) und wird benachrichtigt, wenn ein anderer Teilnehmer das Eintreten des Ereignisses veröffentlicht (publish). \cite{banks2019mqtt}
+
+Um eine problemlose Kommunikation zwischen Aspekt und Solution zu ermöglichen, sollte zusätzlich zum Übertragungsprotokoll ein Datenmodell vorliegen, das die Struktur und den Inhalt der Daten spezifiziert. Es gibt bereits etablierten Metamodelle, die das Spezifizieren von Datenmodellen erlauben, zum Beispiel JSON Schema \cite[vgl.][]{wrigth2022jsonschema}. Für das Digital Twin System bei Bosch wird ein eigenes Meta Modell eingesetzt: das BAMM Aspect Meta Model. Es wurde für den Einsatz mit digitalen Zwillingen entwickelt und wird als Open-Source-Projekt in der Open Manufacturing Platform (OMP) veröffentlich. 
 
 
 
