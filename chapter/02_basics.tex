@@ -40,10 +40,9 @@ Der Datenaustausch zwischen Aspekt und der Software Lösung findet auf Basis ein
 HTTP steht für "`Hyptertext Transfer Protokol"' wird zur Übertragung von Text beliebiger Länge eingesetzt. Ursprünglich war es für das Versenden von HTML-Nachrichten konzipiert \cite{bernerslee1991http}. Heutzutage wird es für alle möglichen Nachrichtenarten eingesetzt. In Webanwendungen werden zusätzlich zur HTML-Nachricht beispielsweise Bilddateien, Stylesheets (z.B. CSS) oder JavaScript-Dateien versendet. Zum reinen Informationsaustausch nutzt man häufig das JSON-Format.
 Beim Datenaustausch gibt es immer zwei Teilnehmer: einen Server und einen Client. Der Client kann eine Anfrage in Form einer Nachricht an den Server stellen. Der Server antwortet mit einer zweiten Nachricht. Die Beziehung zwischen den beiden Kommunikationspartnern ist asymmetrisch, da der Server keine Anfrage an den Client stellen kann. Des weiteren ist die Kommunikation zustandslos, das heißt auf eine Anfrage folgt genau eine Antwort. HTTP ist zustandslos, das heißt der Server behandelt jede Anfrage isoliert und unabhängig davon, welche Anfragen davor gesendet wurden. \cite[vgl.][]{fielding1999http}
 
-MQTT ist kurz für "`Message Queuing Telemetry Transport"'. Es ist ein einfaches Nachrichten-Transport-Protokoll, das auf das Prinzip publish/subscribe basiert. Ein Teilnehmer kann Ereignisse abonnieren (subscribe) und wird benachrichtigt, wenn ein anderer Teilnehmer das Eintreten des Ereignisses veröffentlicht (publish). \cite{banks2019mqtt}
+MQTT ist kurz für "`Message Queuing Telemetry Transport"'. Es ist ein einfaches Nachrichten-Transport-Protokoll, das auf das Prinzip publish/subscribe basiert. Ein Teilnehmer kann Ereignisse abonnieren (subscribe) und wird benachrichtigt, wenn ein anderer Teilnehmer das Eintreten des Ereignisses veröffentlicht (publish). \cite[vgl.][]{banks2019mqtt}
 
-Um eine problemlose Kommunikation zwischen Aspekt und Solution zu ermöglichen, sollte zusätzlich zum Übertragungsprotokoll ein Datenmodell vorliegen, das die Struktur und den Inhalt der Daten spezifiziert. Es gibt bereits etablierten Metamodelle, die das Spezifizieren von Datenmodellen erlauben, zum Beispiel JSON Schema \cite[vgl.][]{wrigth2022jsonschema}. Für das Digital Twin System bei Bosch wird ein eigenes Meta Modell eingesetzt: das BAMM Aspect Meta Model. Es wurde für den Einsatz mit digitalen Zwillingen entwickelt und wird als Open-Source-Projekt in der Open Manufacturing Platform (OMP) veröffentlich. 
-
+Um eine problemlose Kommunikation zwischen Aspekt und Solution zu ermöglichen, sollte zusätzlich zum Übertragungsprotokoll ein Datenmodell vorliegen, das die Struktur und den Inhalt der Daten spezifiziert. Es gibt bereits etablierten Metamodelle, die das Spezifizieren von Datenmodellen erlauben, zum Beispiel JSON Schema \cite[vgl.][]{wrigth2022jsonschema}. Für das Digital Twin System bei Bosch wird ein eigenes Meta Modell eingesetzt: das BAMM Aspect Meta Model (BAMM). Es wurde für den Einsatz mit digitalen Zwillingen entwickelt und wird als Open-Source-Projekt in der Open Manufacturing Platform veröffentlich. Die Modelle, die mit dem BAMM beschrieben werden, nennt man Aspekt Modelle und spezifizieren genau, welche Eigenschaften ein Aspekt besitzt. Außerdem bietet das BAMM, im Gegensatz zu anderen Metamodellen umfangreichere Modellierungsmöglichkeiten wie Vererbung. Sowohl Aspektmodelle als auch das Metamodell werden in der Sprache Turtle des Frameworks RDF beschrieben. Eine Einführung in RDF und in das BAMM Aspect Meta Model werden in den nächsten beiden Sektion gegeben.
 
 
 \section{Resource Description Framework (RDF)}
@@ -124,6 +123,15 @@ Möchte man eine Liste definieren, bei der die Reihenfolge festgelegt ist, kann 
 
 
 
-\section{BAMM Aspect Meta Model}
+\section{BAMM Aspect Meta Model (BAMM)}
+
+Ein Metamodell ist ein Modell, das die Beschreibung von Modellen erlaubt. \cite[vgl.][S. 43f]{jeusfeld2009metamodel} Genauso wie ein Datenmodell die Struktur von konkreten Daten beschreibt, so beschreibt ein Metamodell die Stuktur von konkreten Modellen. Die drei Komponenten Daten, Datenmodell und Metamodell bilden somit eine Hierarchie von drei Abstraktionsebenen.
+
+Im Digital Twin System 
+
+
+
+
+
 \section{Software Defined Vehicle}
 
