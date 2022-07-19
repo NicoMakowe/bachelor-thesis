@@ -125,11 +125,20 @@ Möchte man eine Liste definieren, bei der die Reihenfolge festgelegt ist, kann 
 
 \section{BAMM Aspect Meta Model (BAMM)}
 
-Ein Metamodell ist ein Modell, das die Beschreibung von Modellen erlaubt. \cite[vgl.][S. 43f]{jeusfeld2009metamodel} Genauso wie ein Datenmodell die Struktur von konkreten Daten beschreibt, so beschreibt ein Metamodell die Stuktur von konkreten Modellen. Die drei Komponenten Daten, Datenmodell und Metamodell bilden somit eine Hierarchie von drei Abstraktionsebenen.
+Ein Metamodell ist ein Modell, das die Beschreibung von Modellen erlaubt. \cite[vgl.][S. 43f]{jeusfeld2009metamodel} Genauso wie ein Datenmodell die Struktur konkreter Daten beschreibt, so beschreibt ein Metamodell die Stuktur konkreter Modellen. Daten, Datenmodell und Metamodell bilden eine Hierarchie von drei Abstraktionsebenen.
 
-Im Digital Twin System 
+Die Spezifikation des BAMM Aspect Meta Models setzt sich aus zwei Komponenten zusammen.
+\begin{itemize}
+	\item Es definiert eine Menge von Modellelement-Klassen. Beispiele solcher Klassen sind "`Aspect"', "`Property"', "`Characteristic"' oder "`Entity"'. Innerhalb von Aspektmodellen werden dann Instanzen der Klassen eingesetzt, und in Beziehung zueinander gesetzt. Die Gesamtheit mehrerer Modellelement-Instanzen und deren Verbindungen formen ein Aspekt Modell.
+	\item Die zweite Komponente des BAMM ist eine Menge an Regeln, die vorschreibt, wie die Instanzen der Modellelemente modelliert werden dürfen. Beispielsweise kann sich ein Aspekt beliebig viele Properties besitzen, aber keine Entities. Ein Aspektmodell, bei dem alle Regeln eingehalten sind, nennt man valide.
+\end{itemize}
 
+Ein dritter Teil, der vom BAMM bereitgestellt wird, ist ein Katalog an vorgefertigten Modellelement-Instanzen. Die Instanzen sind nicht Teil der BAMM-Spezifikation und könnten auch von den Endnutzern selbst modelliert werden. Sie bieten jedoch einen Komfort, da häufig eingesetzte Modellierungen nicht selbst modelliert werden müssen.
 
+\subsection{Modellelement-Klassen des BAMM}
+
+Im Folgenden wird ein Überblick über die wichtigsten Modellelemente gegeben und an Beispielen veranschaulicht. Um Inkonsistenten bei Übersetzungen zu vermeiden, werden stets die englischen Bezeichnungen gennant. Lediglich für Bezeichner mit einer ähnlichklingenden Übersetzung wird innerhalb von Sätzen die deutsche Bezeichnung verwendet, um den Lesefluss nicht zu stören.
+\paragraph{Aspect} Die Modellelement-Klasse Aspekt ist das Wurzelelement eines Aspektmodells. Es beschreibt einen Aspekt vollständig und macht Aussagen darüber, welche Daten eine Implementierung 
 
 
 
