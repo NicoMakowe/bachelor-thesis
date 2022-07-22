@@ -35,6 +35,8 @@ Das Grundkonzept des Digital Twin Systems ist, dass sich ein Digital Zwilling au
 
 Die konkrete Implementierung eines Aspekts ist eine API, also eine Schnittstelle, auf die andere Programme zugreifen können, um Daten anzufragen. Diese Programme werden als Lösung (englisch: Solution) bezeichnet und setzen die genannten Anwendungsfälle (Überwachen, Auswerten, Steuern usw.) um.
 
+\subsection{Kommunikationsprotokolle}
+
 Der Datenaustausch zwischen Aspekt und der Software Lösung findet auf Basis eines festgelegten Protokolls statt. Im Digital Twin System stehen aktuell die beiden Nachrichtenprotokolle HTTP und MQTT zur Verfügung. 
 
 HTTP steht für "`Hyptertext Transfer Protokol"' wird zur Übertragung von Text beliebiger Länge eingesetzt. Ursprünglich war es für das Versenden von HTML-Nachrichten konzipiert \cite{bernerslee1991http}. Heutzutage wird es für alle möglichen Nachrichtenarten eingesetzt. In Webanwendungen werden zusätzlich zur HTML-Nachricht beispielsweise Bilddateien, Stylesheets (z.B. CSS) oder JavaScript-Dateien versendet. Zum reinen Informationsaustausch nutzt man häufig das JSON-Format.
@@ -42,8 +44,11 @@ Beim Datenaustausch gibt es immer zwei Teilnehmer: einen Server und einen Client
 
 MQTT ist kurz für "`Message Queuing Telemetry Transport"'. Es ist ein einfaches Nachrichten-Transport-Protokoll, das auf das Prinzip publish/subscribe basiert. Ein Teilnehmer kann Ereignisse abonnieren (subscribe) und wird benachrichtigt, wenn ein anderer Teilnehmer das Eintreten des Ereignisses veröffentlicht (publish). \cite[vgl.][]{banks2019mqtt}
 
-Um eine problemlose Kommunikation zwischen Aspekt und Solution zu ermöglichen, sollte zusätzlich zum Übertragungsprotokoll ein Datenmodell vorliegen, das die Struktur und den Inhalt der Daten spezifiziert. Es gibt bereits etablierten Metamodelle, die das Spezifizieren von Datenmodellen erlauben, zum Beispiel JSON Schema \cite[vgl.][]{wrigth2022jsonschema}. Für das Digital Twin System bei Bosch wird ein eigenes Meta Modell eingesetzt: das BAMM Aspect Meta Model (BAMM). Es wurde für den Einsatz mit digitalen Zwillingen entwickelt und wird als Open-Source-Projekt in der Open Manufacturing Platform veröffentlich. Die Modelle, die mit dem BAMM beschrieben werden, nennt man Aspekt Modelle und spezifizieren genau, welche Eigenschaften ein Aspekt besitzt. Außerdem bietet das BAMM, im Gegensatz zu anderen Metamodellen umfangreichere Modellierungsmöglichkeiten wie Vererbung. Sowohl Aspektmodelle als auch das Metamodell werden in der Sprache Turtle des Frameworks RDF beschrieben. Eine Einführung in RDF und in das BAMM Aspect Meta Model werden in den nächsten beiden Sektion gegeben.
+\subsection{Aspektmodelle} \label{sec:aspektmodelle}
 
+Um eine problemlose Kommunikation zwischen Aspekt und Solution zu ermöglichen, sollte zusätzlich zum Übertragungsprotokoll ein Datenmodell vorliegen, das die Struktur und den Inhalt der Daten spezifiziert. Es gibt bereits etablierten Metamodelle, die das Spezifizieren von Datenmodellen erlauben, zum Beispiel JSON Schema \cite[vgl.][]{wrigth2022jsonschema}. Für das Digital Twin System bei Bosch wird ein eigenes Meta Modell eingesetzt: das BAMM Aspect Meta Model (BAMM). Es wurde für den Einsatz mit digitalen Zwillingen entwickelt und wird als Open-Source-Projekt in der Open Manufacturing Platform veröffentlich. Die Modelle, die mit dem BAMM beschrieben werden, nennt man Aspekt Modelle und spezifizieren genau, welche Eigenschaften ein Aspekt besitzt. 
+
+Es werden nicht nur Daten beschrieben, die während der Laufzeit ausgetauscht werden, sondern auch deren semantische Bedeutung. Im Aspektmodell können beispielsweise physikalische Einheiten oder menschenlesbare Beschreibungen bereitgestellt werden. Außerdem bietet das BAMM, im Gegensatz zu anderen Metamodellen umfangreiche Modellierungsmöglichkeiten wie Vererbung. Sowohl Aspektmodelle als auch das Metamodell werden in der Sprache Turtle des Frameworks RDF beschrieben. Eine Einführung in RDF und in das BAMM Aspect Meta Model werden in den nächsten beiden Sektion gegeben.
 
 \section{Resource Description Framework (RDF)}
 
@@ -127,18 +132,30 @@ Möchte man eine Liste definieren, bei der die Reihenfolge festgelegt ist, kann 
 
 Ein Metamodell ist ein Modell, das die Beschreibung von Modellen erlaubt. \cite[vgl.][S. 43f]{jeusfeld2009metamodel} Genauso wie ein Datenmodell die Struktur konkreter Daten beschreibt, so beschreibt ein Metamodell die Stuktur konkreter Modellen. Daten, Datenmodell und Metamodell bilden eine Hierarchie von drei Abstraktionsebenen.
 
-Die Spezifikation des BAMM Aspect Meta Models setzt sich aus zwei Komponenten zusammen.
+Um Aspektmodelle zu erstellen, wird das BAMM Aspect Meta Model eingesetzt. Die Vorteile von Aspektmodellen wurden bereits in Sektion \ref{sec:aspektmodelle} genannt. In diesem Abschnitt werden die Modellierungsmöglichkeiten von Aspektmodellen beschrieben. Die Spezifikation des BAMM Aspect Meta Models setzt sich aus zwei Komponenten zusammen.
 \begin{itemize}
-	\item Es definiert eine Menge von Modellelement-Klassen. Beispiele solcher Klassen sind "`Aspect"', "`Property"', "`Characteristic"' oder "`Entity"'. Innerhalb von Aspektmodellen werden dann Instanzen der Klassen eingesetzt, und in Beziehung zueinander gesetzt. Die Gesamtheit mehrerer Modellelement-Instanzen und deren Verbindungen formen ein Aspekt Modell.
+	\item Es definiert eine Menge von Modellelement-Klassen. Beispiele solcher Klassen sind "`Aspect"', "`Property"', "`Characteristic"' oder "`Unit"'. Innerhalb von Aspektmodellen werden dann Instanzen der Klassen eingesetzt, und in Beziehung zueinander gesetzt. Die Gesamtheit mehrerer Modellelement-Instanzen und deren Verbindungen formen ein Aspektmodell.
 	\item Die zweite Komponente des BAMM ist eine Menge an Regeln, die vorschreibt, wie die Instanzen der Modellelemente modelliert werden dürfen. Beispielsweise kann sich ein Aspekt beliebig viele Properties besitzen, aber keine Entities. Ein Aspektmodell, bei dem alle Regeln eingehalten sind, nennt man valide.
 \end{itemize}
 
-Ein dritter Teil, der vom BAMM bereitgestellt wird, ist ein Katalog an vorgefertigten Modellelement-Instanzen. Die Instanzen sind nicht Teil der BAMM-Spezifikation und könnten auch von den Endnutzern selbst modelliert werden. Sie bieten jedoch einen Komfort, da häufig eingesetzte Modellierungen nicht selbst modelliert werden müssen.
+Ein dritter Teil, der vom BAMM bereitgestellt wird, ist ein Katalog an vorgefertigten Modellelement-Instanzen. Dazu gehören zum Beispiel häufig eingesetzte Datenstrukturen wie Zeitreihen oder 3D-Vektoren. Dieser Teil wäre in der Spezifikation nicht zwangsweies nötig, aber bietet Anwendern den Komfort, dass häufig eingesetzte Modellierungen nicht selbst modelliert werden müssen.
+
+Das BAMM Aspect Meta Modell ist nicht komplett eigenständig, sondern basiert auf weitverbreitete Standards wie zum Beispiel
+\begin{itemize}
+	\item Das Resource Description Framework (RDF). \cite[vgl.][]{w3c2014rdf}
+	\item Standardisierte Datentypen des World Wide Web Consortiums (W3C). \cite[vgl.][]{w3c2004datatypes}
+	\item Einen Katalog an physikalischen Einheiten, der von der Wirtschaftskommission UNECE empfolen wird. \cite[vgl.][]{unece2021units}
+\end{itemize}
 
 \subsection{Modellelement-Klassen des BAMM}
 
 Im Folgenden wird ein Überblick über die wichtigsten Modellelemente gegeben und an Beispielen veranschaulicht. Um Inkonsistenten bei Übersetzungen zu vermeiden, werden stets die englischen Bezeichnungen gennant. Lediglich für Bezeichner mit einer ähnlichklingenden Übersetzung wird innerhalb von Sätzen die deutsche Bezeichnung verwendet, um den Lesefluss nicht zu stören.
-\paragraph{Aspect} Die Modellelement-Klasse Aspekt ist das Wurzelelement eines Aspektmodells. Es beschreibt einen Aspekt vollständig und macht Aussagen darüber, welche Daten eine Implementierung 
+
+\paragraph{Aspect} Die Modellelement-Klasse Aspekt ist das Wurzelelement eines Aspektmodells. Es beschreibt die bereitgestellten Daten eines Aspekt und ist somit eine Spezifikation für die Implementierung des Aspekts. Im Aspektmodell setzt sich der Aspekt aus einer Menge von Properties, Operations und Events zusammen.
+
+\paragraph{Property} Eine Property ist eine Eigenschaft, die das Objekt der echten Welt besitzt. Typische Properties sind beispielsweise ein Sensorwert einer Maschine oder die Fahrzeugidentifikationsnummer eines Fahrzeugs.
+
+\paragraph{Operation} 
 
 
 
