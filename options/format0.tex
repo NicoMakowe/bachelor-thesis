@@ -2,8 +2,8 @@
 
 \geometry{
 	a4paper,
-	left=25mm,
-	right=25mm,
+	left=30mm,
+	right=30mm,
 	top=25mm,
 	bottom=30mm,
 	footskip=5mm
@@ -32,7 +32,7 @@
 \setlength{\belowdisplayshortskip}{0pt}
 
 % listings
-\lstset{frame=single, firstline=1, numbers=left, numberstyle=\small, basicstyle=\small\ttfamily, captionpos=b, belowskip=-0.5 \baselineskip}
+\lstset{frame=single, breaklines=true, columns=fullflexible, numbers=left, numberstyle=\small, basicstyle=\small\ttfamily, captionpos=b, belowskip=-0.5 \baselineskip, linewidth=143mm}
 
 
 \renewcommand{\lstlistingname}{Quellcode}
@@ -74,7 +74,7 @@
 
 \newcommand{\kopfzeile}{Personalentwicklung und Ausbildung Feuerbach \\ Technische Studiengänge an der DHBW}
 
-\newcommand{\fusszeile}{PEA4-Fe - betriebliche Ausbildung technische Studiengänge der DHBW  \\ \copyright \text{ }Alle Rechte bei der Robert Bosch GmbH, auch für den Fall von Schutzrechtsanmeldungen. Jede Verfügungsbefugnis, wie Kopier- und Weitergaberecht bei uns.}
+\newcommand{\fusszeile}{PEA4-Fe - betriebliche Ausbildung technische Studiengänge der DHBW  \copyright \text{ }Alle Rechte bei der Robert Bosch GmbH, auch für den Fall von Schutzrechtsanmeldungen. Jede Verfügungsbefugnis, wie Kopier- und Weitergaberecht bei uns.}
 
 \pagestyle{fancy}
 \renewcommand{\headrulewidth}{0.5pt}
@@ -87,18 +87,18 @@
 	\fancyhf{}
 	\fancyhead[L]{\small \kopfzeile}
 	\fancyhead[R]{
-		\begin{textblock*}{4.0cm}(78.0mm, -8.0mm)
+		\begin{textblock*}{4.0cm}(68.0mm, -8.0mm)
 			\includegraphics[height=1.1cm]{resources/logos/DHBW-Logo.png}
 		\end{textblock*}
-		\begin{textblock*}{4.0cm}(120.0mm, -16.0mm)
+		\begin{textblock*}{4.0cm}(110.0mm, -16.0mm)
 			\includegraphics[height=2.0cm]{resources/logos/Bosch-Logo-Kopfzeile.png}
 		\end{textblock*}
 	}
 	\fancyfoot[L]{
-		\tiny \fusszeile
+		\scriptsize \fusszeile
 		\vspace{2mm}
-		\begin{tabular*}{16cm}{@{\extracolsep{\fill}}l>{
-					\raggedleft}p{8cm}}
+		\begin{tabular*}{15cm}{@{\extracolsep{\fill}}l>{
+					\raggedleft}p{7.5cm}}
 			{\small Stand: \today} & 
 			{\small Seite \thepage}
 		\end{tabular*}
@@ -109,18 +109,18 @@
 		\fancyhf{}
 		\fancyhead[L]{\small \kopfzeile}
 		\fancyhead[R]{
-			\begin{textblock*}{4.0cm}(78.0mm, -8.0mm)
+			\begin{textblock*}{4.0cm}(68.0mm, -8.0mm)
 				\includegraphics[height=1.1cm]{resources/logos/DHBW-Logo.png}
 			\end{textblock*}
-			\begin{textblock*}{4.0cm}(120.0mm, -16.0mm)
+			\begin{textblock*}{4.0cm}(110.0mm, -16.0mm)
 				\includegraphics[height=2.0cm]{resources/logos/Bosch-Logo-Kopfzeile.png}
 			\end{textblock*}
 		}
 		\fancyfoot[L]{
-			\tiny \fusszeile
+			\scriptsize \fusszeile
 			\vspace{2mm}
-			\begin{tabular*}{16cm}{@{\extracolsep{\fill}}l>{
-						\raggedleft}p{8cm}}
+			\begin{tabular*}{15cm}{@{\extracolsep{\fill}}l>{
+						\raggedleft}p{7.5cm}}
 				{\small Stand: \today} & 
 				{\small Seite \thepage}
 			\end{tabular*}
@@ -135,18 +135,18 @@
 	\fancyhf{}
 	\fancyhead[L]{\small \kopfzeile}
 	\fancyhead[R]{
-		\begin{textblock*}{4.0cm}(78.0mm, -8.0mm)
+		\begin{textblock*}{4.0cm}(68.0mm, -8.0mm)
 			\includegraphics[height=1.1cm]{resources/logos/DHBW-Logo.png}
 		\end{textblock*}
-		\begin{textblock*}{4.0cm}(120.0mm, -16.0mm)
+		\begin{textblock*}{4.0cm}(110.0mm, -16.0mm)
 			\includegraphics[height=2.0cm]{resources/logos/Bosch-Logo-Kopfzeile.png}
 		\end{textblock*}
 	}
 	\fancyfoot[L]{
-		\tiny \fusszeile
+		\scriptsize \fusszeile
 		\vspace{2mm}
-		\begin{tabular*}{16cm}{@{\extracolsep{\fill}}l>{
-					\raggedleft}p{8cm}}
+		\begin{tabular*}{15cm}{@{\extracolsep{\fill}}l>{
+					\raggedleft}p{7.5cm}}
 			{\small Stand: \today} & 
 			{\small Seite \thepage\text{ von }\pageref{LastPage}}
 		\end{tabular*}
@@ -157,18 +157,18 @@
 		\fancyhf{}
 		\fancyhead[L]{\small \kopfzeile}
 		\fancyhead[R]{
-			\begin{textblock*}{4.0cm}(78.0mm, -8.0mm)
+			\begin{textblock*}{4.0cm}(68.0mm, -8.0mm)
 				\includegraphics[height=1.1cm]{resources/logos/DHBW-Logo.png}
 			\end{textblock*}
-			\begin{textblock*}{4.0cm}(120.0mm, -16.0mm)
+			\begin{textblock*}{4.0cm}(110.0mm, -16.0mm)
 				\includegraphics[height=2.0cm]{resources/logos/Bosch-Logo-Kopfzeile.png}
 			\end{textblock*}
 		}
 		\fancyfoot[L]{
-			\tiny \fusszeile
+			\scriptsize \fusszeile
 			\vspace{2mm}
-			\begin{tabular*}{16cm}{@{\extracolsep{\fill}}l>{
-					\raggedleft}p{8cm}}
+			\begin{tabular*}{15cm}{@{\extracolsep{\fill}}l>{
+					\raggedleft}p{7.5cm}}
 					{\small Stand: \today} & 
 					{\small Seite \thepage\text{ von }\pageref{LastPage}}
 			\end{tabular*}

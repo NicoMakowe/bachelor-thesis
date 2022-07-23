@@ -126,7 +126,7 @@ Möchte man eine Liste definieren, bei der die Reihenfolge festgelegt ist, kann 
 	\label{fig:rdflist}
 \end{figure}
 
-
+Zusammenfassend erlaubt RDF die formale Beschreibung aller möglichen Zusammenhänge. Über die Semantik, also die Bedeutung der Daten in Bezug auf die echte Welt, macht RDF keine Aussage. Die Semantik wird erst von konkreten Datenmodellen  ins Spiel gebracht, die auf RDF basieren.
 
 \section{BAMM Aspect Meta Model (BAMM)}
 
@@ -135,7 +135,7 @@ Ein Metamodell ist ein Modell, das die Beschreibung von Modellen erlaubt. \cite[
 Um Aspektmodelle zu erstellen, wird das BAMM Aspect Meta Model eingesetzt. Die Vorteile von Aspektmodellen wurden bereits in Sektion \ref{sec:aspektmodelle} genannt. In diesem Abschnitt werden die Modellierungsmöglichkeiten von Aspektmodellen beschrieben. Die Spezifikation des BAMM Aspect Meta Models setzt sich aus zwei Komponenten zusammen.
 \begin{itemize}
 	\item Es definiert eine Menge von Modellelement-Klassen. Beispiele solcher Klassen sind "`Aspect"', "`Property"', "`Characteristic"' oder "`Unit"'. Innerhalb von Aspektmodellen werden dann Instanzen der Klassen eingesetzt, und in Beziehung zueinander gesetzt. Die Gesamtheit mehrerer Modellelement-Instanzen und deren Verbindungen formen ein Aspektmodell.
-	\item Die zweite Komponente des BAMM ist eine Menge an Regeln, die vorschreibt, wie die Instanzen der Modellelemente modelliert werden dürfen. Beispielsweise kann sich ein Aspekt beliebig viele Properties besitzen, aber keine Entities. Ein Aspektmodell, bei dem alle Regeln eingehalten sind, nennt man valide.
+	\item Die zweite Komponente des BAMM ist eine Menge an Regeln, die vorschreibt, wie die Instanzen der Modellelemente modelliert werden dürfen. Beispielsweise kann ein Aspekt beliebig viele Properties besitzen, aber keine Entities. Ein Aspektmodell, bei dem alle Regeln eingehalten sind, nennt man valide.
 \end{itemize}
 
 Ein dritter Teil, der vom BAMM bereitgestellt wird, ist ein Katalog an vorgefertigten Modellelement-Instanzen. Dazu gehören zum Beispiel häufig eingesetzte Datenstrukturen wie Zeitreihen oder 3D-Vektoren. Dieser Teil wäre in der Spezifikation nicht zwangsweies nötig, aber bietet Anwendern den Komfort, dass häufig eingesetzte Modellierungen nicht selbst modelliert werden müssen.
@@ -153,11 +153,17 @@ Im Folgenden wird ein Überblick über die wichtigsten Modellelemente gegeben un
 
 \paragraph{Aspect} Die Modellelement-Klasse Aspekt ist das Wurzelelement eines Aspektmodells. Es beschreibt die bereitgestellten Daten eines Aspekt und ist somit eine Spezifikation für die Implementierung des Aspekts. Im Aspektmodell setzt sich der Aspekt aus einer Menge von Properties, Operations und Events zusammen.
 
-\paragraph{Property} Eine Property ist eine Eigenschaft, die das Objekt der echten Welt besitzt. Typische Properties sind beispielsweise ein Sensorwert einer Maschine oder die Fahrzeugidentifikationsnummer eines Fahrzeugs.
+\paragraph{Property} Eine Property ist eine Eigenschaft, die das Objekt der echten Welt besitzt. Beispielhafte Properties sind Sensorwerte einer Maschine, die Fahrzeugidentifizierungsnummer eines Fahrzeugs oder die aktuelle Version einer installierten Software.
 
-\paragraph{Operation} 
+\paragraph{Operation} Funktionalitäten, die eine Solution triggern kann, sodass das Asset diese ausführt, bezeichnet man als Operation. Operationen haben beliebig viele Eingabeargumente und einen optionalen Rückgabewert. Beispiele hierfür sind das Starten oder Stoppen einer Maschine oder das Auslesen eines Fehlerspeichers.
 
+\paragraph{Event} Ein Event ist ein einmaliges Ereignis, das zu einem bestimmten Zeitpunkt auftritt und an den Aspekt gemeldet werden sollte, damit dieser darauf reagieren kann. Für eine Maschine könnten sinnvolle Events zum Beispiel das manuelle Öffnen einer Türe sein, oder das Aufbrauchen von Rohmaterial. Events sind vor allem dann nützlich, wenn es eine Echtzeitverbindung zwischen Asset und Aspekt gibt.
 
+\paragraph{Characteristic} Eine Charakteristik beschreibt die Darstellung und den Datentyp einer Property. Wenn eine Solution und eine Aspekt wärend der Laufzeit über HHTP kommunizieren, dann werden Properties in einer JSON-Struktur dargestellt. Jede Property ist entweder ein nativer Typ (String, Zahl, boolescher Wert, Null) oder eine komplexere Struktur (Array, Objekt). Wie genau eine Property darstellt wird, spezifiziert eine Charakteristik.
+
+\paragraph{Entity} Für den Fall, dass eine Property als JSON-Objekt mit geschachtelten Werten dargestellt wird, werden Entities eingesetzt. Eine Entity ist ein Datentyp, der mehrere Unter-Properties besitzt. Um die Anwendung zu verdeutlichen, wird im Folgenden ein Beispiel dargestellt.
+
+Eine CNC-Fräsmaschine hat als Eigenschaft eine Position im dreidimensionalen Raum. Ein Aspekt soll diese Eigenschaft bereitstellen. Dafür wird im Aspektmodell eine Property mit dem Namen "`CurrentPosition"' erstellt. Die Property besitzt eine Charakteristik, die ein Entity als Datentyp festgelegt hat. Das Entity heißt "`Vector3D"' und besitzt die drei Properties "`X"', "`Y"' und "`Z"'. Für diese Properties werden dann zum Beispiel der Datentype Float festgelegt.
 
 \section{Software Defined Vehicle}
 
