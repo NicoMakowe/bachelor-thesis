@@ -20,35 +20,40 @@ Ein weiteres Einsatzgebiet ist das zentrale Abspeichern von Ereignissen einer Ma
 Es ist möglich eine Echt-Zeit-Kommunikation zwischen einem Digitalem Zwilling und seinem realen Objekt zu erlauben. Somit kann ein Computerprogramm zum Beispiel eine Maschine steuern, indem es die Maschine über den digitalen Zwilling zu einer Aktion auffordert.
 
 
-
 \section{Digital Twin System}
 
+	\subsection{Einführung}
+	Die Implementierungen digitaler Zwillinge können sehr unterschiedlich sein und es gibt keinen allgemein verbreiteten Standard. Ein firmeninterner Ansatz zur Vereinheitlichung digitaler Zwillinge ist das Digital Twin System (DTS). Der Bosch Smantic Stack, eine Abteilung von Bosch, ist für die Entwicklung und Bereitstellung des Systems verantwortlich. Ein Teil des Digital Twin Systems ist nur kommerziell verfügbar. Ein weiterer Teil wird als Open-Source-Projekt in der Open Manufacturing Platform (OMP) veröffentlicht. Dies ist eine Vereinigung vieler Unternehmen (z.B. BMW, Bosch, Microsoft, ZF), die das Ziel hat, die Fertigung von Produkten voranzutreiben. \cite[vgl.][]{omp2020omp}
+	
+	Das Grundkonzept des Digital Twin Systems ist, dass sich ein Digital Zwilling aus Aspekten zusammensetzt. Ein Aspekt ist eine bestimmte Sichtweise auf das repräsentierte Objekt. Entwickelt man einen digitalen Zwilling einer Maschine, könnten man beispielsweise folgende Aspekte definieren. 
+	\begin{itemize}
+		\item Einen Aspekt für den aktuellen Maschinenzustand, der Informationen über aktuelle Eigenschaften und Sensorwerten darstellt.
+		\item Einen Aspekt für die Historie der Maschine, der den Wartungsverlauf zeigt.
+		\item Einen Aspekt, der alle Produkte darstellt, die von der Maschine gefertigt werden können.
+	\end{itemize}
+	
+	Die konkrete Implementierung eines Aspekts ist eine API, also eine Schnittstelle, auf die andere Programme zugreifen können, um Daten anzufragen. Diese Programme werden als Lösung (englisch: Solution) bezeichnet und setzen die genannten Anwendungsfälle (Überwachen, Auswerten, Steuern usw.) um.
+	
+	{\color{red} Catalog, Registry, Übersichtsdiagramm Solution, Aspekt, Asset}
 
-Die Implementierungen digitaler Zwillinge können sehr unterschiedlich sein und es gibt keinen allgemein verbreiteten Standard. Ein firmeninterner Ansatz zur Vereinheitlichung digitaler Zwillinge ist das Digital Twin System (DTS). Der Bosch Smantic Stack, eine Abteilung von Bosch, ist für die Entwicklung und Bereitstellung des Systems verantwortlich. Ein Teil des Digital Twin Systems ist nur kommerziell verfügbar. Ein weiterer Teil wird als Open-Source-Projekt in der Open Manufacturing Platform (OMP) veröffentlicht. Dies ist eine Vereinigung vieler Unternehmen (z.B. BMW, Bosch, Microsoft, ZF), die das Ziel hat, die Fertigung von Produkten voranzutreiben. \cite[vgl.][]{omp2020omp}
-
-Das Grundkonzept des Digital Twin Systems ist, dass sich ein Digital Zwilling aus Aspekten zusammensetzt. Ein Aspekt ist eine bestimmte Sichtweise auf das repräsentierte Objekt. Entwickelt man einen digitalen Zwilling einer Maschine, könnten man beispielsweise folgende Aspekte definieren. 
-\begin{itemize}
-	\item Einen Aspekt für den aktuellen Maschinenzustand, der Informationen über aktuelle Eigenschaften und Sensorwerten darstellt.
-	\item Einen Aspekt für die Historie der Maschine, der den Wartungsverlauf zeigt.
-	\item Einen Aspekt, der alle Produkte darstellt, die von der Maschine gefertigt werden können.
-\end{itemize}
-
-Die konkrete Implementierung eines Aspekts ist eine API, also eine Schnittstelle, auf die andere Programme zugreifen können, um Daten anzufragen. Diese Programme werden als Lösung (englisch: Solution) bezeichnet und setzen die genannten Anwendungsfälle (Überwachen, Auswerten, Steuern usw.) um.
-
-\subsection{Kommunikationsprotokolle}
-
-Der Datenaustausch zwischen Aspekt und der Software Lösung findet auf Basis eines festgelegten Protokolls statt. Im Digital Twin System stehen aktuell die beiden Nachrichtenprotokolle HTTP und MQTT zur Verfügung. 
-
-HTTP steht für "`Hyptertext Transfer Protokol"' wird zur Übertragung von Text beliebiger Länge eingesetzt. Ursprünglich war es für das Versenden von HTML-Nachrichten konzipiert \cite{bernerslee1991http}. Heutzutage wird es für alle möglichen Nachrichtenarten eingesetzt. In Webanwendungen werden zusätzlich zur HTML-Nachricht beispielsweise Bilddateien, Stylesheets (z.B. CSS) oder JavaScript-Dateien versendet. Zum reinen Informationsaustausch nutzt man häufig das JSON-Format.
-Beim Datenaustausch gibt es immer zwei Teilnehmer: einen Server und einen Client. Der Client kann eine Anfrage in Form einer Nachricht an den Server stellen. Der Server antwortet mit einer zweiten Nachricht. Die Beziehung zwischen den beiden Kommunikationspartnern ist asymmetrisch, da der Server keine Anfrage an den Client stellen kann. Des weiteren ist die Kommunikation zustandslos, das heißt auf eine Anfrage folgt genau eine Antwort. HTTP ist zustandslos, das heißt der Server behandelt jede Anfrage isoliert und unabhängig davon, welche Anfragen davor gesendet wurden. \cite[vgl.][]{fielding1999http}
-
-MQTT ist kurz für "`Message Queuing Telemetry Transport"'. Es ist ein einfaches Nachrichten-Transport-Protokoll, das auf das Prinzip publish/subscribe basiert. Ein Teilnehmer kann Ereignisse abonnieren (subscribe) und wird benachrichtigt, wenn ein anderer Teilnehmer das Eintreten des Ereignisses veröffentlicht (publish). \cite[vgl.][]{banks2019mqtt}
-
-\subsection{Aspektmodelle} \label{sec:aspektmodelle}
-
-Um eine problemlose Kommunikation zwischen Aspekt und Solution zu ermöglichen, sollte zusätzlich zum Übertragungsprotokoll ein Datenmodell vorliegen, das die Struktur und den Inhalt der Daten spezifiziert. Es gibt bereits etablierten Metamodelle, die das Spezifizieren von Datenmodellen erlauben, zum Beispiel JSON Schema \cite[vgl.][]{wrigth2022jsonschema}. Für das Digital Twin System bei Bosch wird ein eigenes Meta Modell eingesetzt: das BAMM Aspect Meta Model (BAMM). Es wurde für den Einsatz mit digitalen Zwillingen entwickelt und wird als Open-Source-Projekt in der Open Manufacturing Platform veröffentlich. Die Modelle, die mit dem BAMM beschrieben werden, nennt man Aspekt Modelle und spezifizieren genau, welche Eigenschaften ein Aspekt besitzt. 
-
-Es werden nicht nur Daten beschrieben, die während der Laufzeit ausgetauscht werden, sondern auch deren semantische Bedeutung. Im Aspektmodell können beispielsweise physikalische Einheiten oder menschenlesbare Beschreibungen bereitgestellt werden. Außerdem bietet das BAMM, im Gegensatz zu anderen Metamodellen umfangreiche Modellierungsmöglichkeiten wie Vererbung. Sowohl Aspektmodelle als auch das Metamodell werden in der Sprache Turtle des Frameworks RDF beschrieben. Eine Einführung in RDF und in das BAMM Aspect Meta Model werden in den nächsten beiden Sektion gegeben.
+	\subsection{Kommunikationsprotokolle}
+	
+	Der Datenaustausch zwischen Aspekt und der Software Lösung findet auf Basis eines festgelegten Protokolls statt. Im Digital Twin System stehen aktuell die beiden Nachrichtenprotokolle HTTP und MQTT zur Verfügung. 
+	
+	HTTP steht für "`Hyptertext Transfer Protokol"' wird zur Übertragung von Text beliebiger Länge eingesetzt. Ursprünglich war es für das Versenden von HTML-Nachrichten konzipiert \cite{bernerslee1991http}. Heutzutage wird es für alle möglichen Nachrichtenarten eingesetzt. In Webanwendungen werden zusätzlich zur HTML-Nachricht beispielsweise Bilddateien, Stylesheets (z.B. CSS) oder JavaScript-Dateien versendet. Zum reinen Informationsaustausch nutzt man häufig das JSON-Format.
+	Beim Datenaustausch gibt es immer zwei Teilnehmer: einen Server und einen Client. Der Client kann eine Anfrage in Form einer Nachricht an den Server stellen. Der Server antwortet mit einer zweiten Nachricht. Die Beziehung zwischen den beiden Kommunikationspartnern ist asymmetrisch, da der Server keine Anfrage an den Client stellen kann. Des weiteren ist die Kommunikation zustandslos, das heißt auf eine Anfrage folgt genau eine Antwort. HTTP ist zustandslos, das heißt der Server behandelt jede Anfrage isoliert und unabhängig davon, welche Anfragen davor gesendet wurden. \cite[vgl.][]{fielding1999http}
+	
+	MQTT ist kurz für "`Message Queuing Telemetry Transport"'. Es ist ein einfaches Nachrichten-Transport-Protokoll, das auf das Prinzip publish/subscribe basiert. Ein Teilnehmer kann Ereignisse abonnieren (subscribe) und wird benachrichtigt, wenn ein anderer Teilnehmer das Eintreten des Ereignisses veröffentlicht (publish). \cite[vgl.][]{banks2019mqtt}
+	
+	\subsection{Aspektmodelle} \label{sec:aspektmodelle}
+	
+	Um eine problemlose Kommunikation zwischen Aspekt und Solution zu ermöglichen, sollte zusätzlich zum Übertragungsprotokoll ein Datenmodell vorliegen, das die Struktur und den Inhalt der Daten spezifiziert. Es gibt bereits etablierten Metamodelle, die das Spezifizieren von Datenmodellen erlauben, zum Beispiel JSON Schema \cite[vgl.][]{wrigth2022jsonschema}. Für das Digital Twin System bei Bosch wird ein eigenes Meta Modell eingesetzt: das BAMM Aspect Meta Model (BAMM). Es wurde für den Einsatz mit digitalen Zwillingen entwickelt und wird als Open-Source-Projekt in der Open Manufacturing Platform veröffentlich. Die Modelle, die mit dem BAMM beschrieben werden, nennt man Aspekt Modelle und spezifizieren genau, welche Eigenschaften ein Aspekt besitzt. 
+	
+	Es werden nicht nur Daten beschrieben, die während der Laufzeit ausgetauscht werden, sondern auch deren semantische Bedeutung. Im Aspektmodell können beispielsweise physikalische Einheiten oder menschenlesbare Beschreibungen bereitgestellt werden. Außerdem bietet das BAMM, im Gegensatz zu anderen Metamodellen umfangreiche Modellierungsmöglichkeiten wie Vererbung. Sowohl Aspektmodelle als auch das Metamodell werden in der Sprache Turtle des Frameworks RDF beschrieben. Eine Einführung in RDF und in das BAMM Aspect Meta Model werden in den nächsten beiden Sektion gegeben.
+	
+	\subsection{Software Development Kit}
+	\subsection{Registry}
+	\subsection{Catalog}
 
 \section{Resource Description Framework (RDF)}
 
@@ -56,67 +61,67 @@ Das Resource Description Framework (RDF) ist ein Modell, das zur Beschreibung vo
 
 Zu RDF gehören mehrere Spezifikationen, die beispielsweise das Datenmodell oder eine Syntax zur Beschreibung von Daten festlegen. Das World Wide Web Consortium (W3O) veröffentlicht diese Spezifikationen und viele weitere unter dem Begriff "`Semantic Web"'. Dieser Ausdruck beschreibt die Vision, dass beliebige Daten im Internet bereitgestellt, ausgetauscht und verarbeitet werden können. \cite[vgl.][]{w3c2014semanticweb}
 
-\subsection{Datenmodell}
+	\subsection{Datenmodell}
+	
+	Ein RDF-Graph setzt sich aus einer beliebig großen Menge sogenannter Triples zusammen. \cite[vgl.][Sektion 3.1]{w3c2014rdfconcepts} Ein einzelnes Triple ist formal gesehen ein 3-Tupel mit folgenden Elementen:
+	\begin{enumerate}
+		\item Das erste Element bezeichnet man als Subjekt. Es repräsentiert den Startknoten, von dem eine Verbindung ausgeht.
+		\item Das zweite Element nennt man Prädikat. Es stellt die konkrete Verbindung dar.
+		\item Das dritte Element bezeichnet man als Objekt. Dies ist der Endknoten, auf den die Verbindung zeigt. 
+	\end{enumerate}
+	
+	Somit sind Subjekt und Objekt immer ein Knoten, das Prädikat ist immer eine Kante.
+	
+	Es gibt drei Arten von Knoten:
+	\begin{enumerate}
+		\item Als Resource bezeichnet man einen Knoten, der sowohl Ein- als auch Ausgangsknoten besitzen kann und durch einen URI identifiziert. URI sind innerhalb eines Graphen einzigartig und können von Computerprogrammen eingesetzt werden, um einen bestimmten Knoten zu suchen.
+		\item Blank Nodes sind Knoten, die Ein- und Ausgangsknoten besitzen können, aber nicht durch einen URI identifiziert sind. Ein Programm kann nicht nach einem Blank Node suchen.
+		\item Literale sind Werte wie Ganzzahlen oder Strings und haben keine ausgehenden Kanten.	
+	\end{enumerate}
+	Kanten werden immer durch einen URI identifiziert.
+	
+	In Tabelle \ref{tab:triples} sind Beispiele für Triples zu sehen, die zusammen einen Graphen formen. Die beiden URIs \lstinline|<urn:relation\#Anton>| und \lstinline|<urn:relation\#Berta>| sind Resourcen. \lstinline|_:Geburtstag| ist ein Blank Node und die Werte \lstinline|"Anton"|, \lstinline|"Stuttgart"| und \lstinline|"1980-01-01"| sind Literale.
+	
+	\input{resources/tables/2TripleList.tex}
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.7\linewidth]{resources/figures/rdfGraph}
+		\caption{Visualisierung des Graphen, der von den Triples in Tabelle \ref{tab:triples} beschrieben wird. }
+		\label{fig:rdfgraph}
+	\end{figure}
 
-Ein RDF-Graph setzt sich aus einer beliebig großen Menge sogenannter Triples zusammen. \cite[vgl.][Sektion 3.1]{w3c2014rdfconcepts} Ein einzelnes Triple ist formal gesehen ein 3-Tupel mit folgenden Elementen:
-\begin{enumerate}
-	\item Das erste Element bezeichnet man als Subjekt. Es repräsentiert den Startknoten, von dem eine Verbindung ausgeht.
-	\item Das zweite Element nennt man Prädikat. Es stellt die konkrete Verbindung dar.
-	\item Das dritte Element bezeichnet man als Objekt. Dies ist der Endknoten, auf den die Verbindung zeigt. 
-\end{enumerate}
 
-Somit sind Subjekt und Objekt immer ein Knoten, das Prädikat ist immer eine Kante.
+	\subsection{RDF Syntax}
 
-Es gibt drei Arten von Knoten:
-\begin{enumerate}
-	\item Als Resource bezeichnet man einen Knoten, der sowohl Ein- als auch Ausgangsknoten besitzen kann und durch einen URI identifiziert. URI sind innerhalb eines Graphen einzigartig und können von Computerprogrammen eingesetzt werden, um einen bestimmten Knoten zu suchen.
-	\item Blank Nodes sind Knoten, die Ein- und Ausgangsknoten besitzen können, aber nicht durch einen URI identifiziert sind. Ein Programm kann nicht nach einem Blank Node suchen.
-	\item Literale sind Werte wie Ganzzahlen oder Strings und haben keine ausgehenden Kanten.	
-\end{enumerate}
-Kanten werden immer durch einen URI identifiziert.
+	N-Triples ist eine Syntax, bei der beliebig viele Triples hintereinander aufgelistet werden \cite[vgl.][]{w3c2014ntriples}. Die Grammatik ist in Form von regulären Ausdrücken definiert. Ein Ausschnitt davon ist in den Formeln \ref{eq:ntriple} zu sehen. Jedes n-Triples-Dokument setzt sich demnach aus abwechselnden Triples und Zeilenumbrüchen (EOL, End-Of-Line) zusammen. Ein Triple besteht aus Subjekt, Prädikat und Objekt sowie einem Punkt am Ende. N-Triples-Dateien werden mit der Dateiendung "`.nt"' versehen. Die beispielhaften Triples aus Tabelle \ref{tab:triples} sind in Quellcode \ref{lst:n-triple} dargestellt.
+	\begin{align}
+		\text{ntripleDoc} & ::= \text{triple?}\text{ } (\text{EOL triple})\mbox{*} \text{ EOL?} \label{eq:ntriple}\\
+		\text{triple} & ::= \text{subject } \text{predicate } \text{object } \text{"'."'} \nonumber
+	\end{align}
+	\listingfile[caption=Beispiel einer N-Triples-Datei, label=lst:n-triple]{resources/codeSnippets/2PureTriples.ttl}
+	
+	Eine zweite Syntax, mit der RDF-Graphen beschrieben werden können, heißt "`Terse RDF Triple Language"' (TTL) und wird auch als "`Turtle"' bezeichnet  \cite[vgl.][]{w3c2014turtle}. Turtle-Dateien besitzen die Datei-Endung "`.ttl"'.
+	Die Sprache, die von der TTL-Grammatik beschrieben wird, ist eine Obermenge der N-Triples-Sprache. Das heißt, jede gültige N-Triples-Datei ist auch eine gültige Turtle-Datei. Zusätzlich erlaubt die Turtle-Syntax weitere Schreibweisen, die es ermöglichen, Graphen übersichtlicher und mit weniger Text darzustellen. Durch syntaktische Äquivalenzumformungen lässt sich jede Turtle-Datei wieder auf eine Liste von Triples zurückführen. Somit kann jeder beliebige Graph sowohl mit N-Triples als auch mit Turtle beschrieben werden. Im Folgenden werden einige wichtige Syntax-Merkmale genauer vorgestellt.
+		\paragraph{Namespaces}
+		
+		Die URIs in einer Datei beginnen häufig mit dem gleichen Zeichenfolge. Benannte Knoten unterscheiden sich meist nur am letzten Abschnitt des URIs. Namespaces ermöglichen, eine abgekürzte Schreibweise für URIs zu verwenden, um die Datei übersichtlicher zu machen. Ein Namespace wird mit dem Schlüsselwort \lstinline|@prefix| festgelegt, wie in Quellcode \ref{lst:ttl-namespace} zu sehen ist.
+		\listingfile[caption=TTL-Datei mit Namespace, label=lst:ttl-namespace]{resources/codeSnippets/2TriplesNamespace.ttl}
 
-In Tabelle \ref{tab:triples} sind Beispiele für Triples zu sehen, die zusammen einen Graphen formen. Die beiden URIs \lstinline|<urn:relation\#Anton>| und \lstinline|<urn:relation\#Berta>| sind Resourcen. \lstinline|_:Geburtstag| ist ein Blank Node und die Werte \lstinline|"Anton"|, \lstinline|"Stuttgart"| und \lstinline|"1980-01-01"| sind Literale.
+		\paragraph{Liste von Prädikaten}
+		Wenn in einer Turtle-Datei mehrere Triples mit dem gleichen Subjekt vorkommen, können diese Triples zusammengefasst werden. Dazu wird das erste Triple nicht mit einem Punkt, sondern mit einem Semikolon abgeschlossen. In der nächsten Zeile kommen dann nur noch Prädikate und Objekt vor. Das Subjekt wird aus der vorangegangenen Zeile wiederverwendet (siehe Quellcode \ref{lst:ttl-predicate-list}).
+		\listingfile[caption=TTL-Datei mit einer Liste von Prädikaten, label=lst:ttl-predicate-list]{resources/codeSnippets/2TriplesPredicateList.ttl}
 
-\input{resources/tables/2TripleList.tex}
+		\paragraph{Verschachtelung von Blank Nodes}
+		Blank Nodes werden häufig eingesetzt, um komplexe Strukturen darzustellen. Im Beispiel setzt sich der Geburtstag aus Ort und Datum zusammen. Blank Nodes werden immer in einem bestimmten Kontext verwendet und verlieren ohne diesen Kontext ihre semantische Bedeutung. Der Knoten \lstinline|_:Geburtstag| beispielsweise ist bedeutungslos, wenn man nicht weiß, dass er zu Berta gehört. Aus diesem Grund ist es sinnvoll, dass der Knoten nicht durch einen URI auffindbar ist. Auf ihn kann nur zugegriffen werden, indem man vom Knoten Berta entlang dem Prädikat \lstinline|rel:geboren| navigiert.
+		
+		Auch für Blank Nodes gibt es eine Kurzschreibweise. Im Beispiel wird anstatt \lstinline|_:Geburtstag| ein Paar eckiger Klammers \lstinline|[]| geschrieben. Alle Prädikate, die von dem Blank Nodes ausgehen, werden zusammen mit dem Objekt in die eckigen Klammern geschrieben (siehe Quellcode \ref{lst:ttl-blank-node})
+		\listingfile[caption=TTL-Datei mit verschachtelter Blank Node, label=lst:ttl-blank-node]{resources/codeSnippets/2TriplesBNode.ttl}
 
-\begin{figure}
-	\centering
-	\includegraphics[width=0.7\linewidth]{resources/figures/rdfGraph}
-	\caption{Visualisierung des Graphen, der von den Triples in Tabelle \ref{tab:triples} beschrieben wird. }
-	\label{fig:rdfgraph}
-\end{figure}
-
-
-\subsection{RDF Syntax}
-
-N-Triples ist eine Syntax, bei der beliebig viele Triples hintereinander aufgelistet werden \cite[vgl.][]{w3c2014ntriples}. Die Grammatik ist in Form von regulären Ausdrücken definiert. Ein Ausschnitt davon ist in den Formeln \ref{eq:ntriple} zu sehen. Jedes n-Triples-Dokument setzt sich demnach aus abwechselnden Triples und Zeilenumbrüchen (EOL, End-Of-Line) zusammen. Ein Triple besteht aus Subjekt, Prädikat und Objekt sowie einem Punkt am Ende. N-Triples-Dateien werden mit der Dateiendung "`.nt"' versehen. Die beispielhaften Triples aus Tabelle \ref{tab:triples} sind in Quellcode \ref{lst:n-triple} dargestellt.
-\begin{align}
-	\text{ntripleDoc} & ::= \text{triple?}\text{ } (\text{EOL triple})\mbox{*} \text{ EOL?} \label{eq:ntriple}\\
-	\text{triple} & ::= \text{subject } \text{predicate } \text{object } \text{"'."'} \nonumber
-\end{align}
-\listingfile[caption=Beispiel einer N-Triples-Datei, label=lst:n-triple]{resources/codeSnippets/2PureTriples.ttl}
-
-Eine zweite Syntax, mit der RDF-Graphen beschrieben werden können, heißt "`Terse RDF Triple Language"' (TTL) und wird auch als "`Turtle"' bezeichnet  \cite[vgl.][]{w3c2014turtle}. Turtle-Dateien besitzen die Datei-Endung "`.ttl"'.
-Die Sprache, die von der TTL-Grammatik beschrieben wird, ist eine Obermenge der N-Triples-Sprache. Das heißt, jede gültige N-Triples-Datei ist auch eine gültige Turtle-Datei. Zusätzlich erlaubt die Turtle-Syntax weitere Schreibweisen, die es ermöglichen, Graphen übersichtlicher und mit weniger Text darzustellen. Durch syntaktische Äquivalenzumformungen lässt sich jede Turtle-Datei wieder auf eine Liste von Triples zurückführen. Somit kann jeder beliebige Graph sowohl mit N-Triples als auch mit Turtle beschrieben werden. Im Folgenden werden einige wichtige Syntax-Merkmale genauer vorgestellt.
-\paragraph{Namespaces}
-
-Die URIs in einer Datei beginnen häufig mit dem gleichen Zeichenfolge. Benannte Knoten unterscheiden sich meist nur am letzten Abschnitt des URIs. Namespaces ermöglichen, eine abgekürzte Schreibweise für URIs zu verwenden, um die Datei übersichtlicher zu machen. Ein Namespace wird mit dem Schlüsselwort \lstinline|@prefix| festgelegt, wie in Quellcode \ref{lst:ttl-namespace} zu sehen ist.
-\listingfile[caption=TTL-Datei mit Namespace, label=lst:ttl-namespace]{resources/codeSnippets/2TriplesNamespace.ttl}
-
-\paragraph{Liste von Prädikaten}
-Wenn in einer Turtle-Datei mehrere Triples mit dem gleichen Subjekt vorkommen, können diese Triples zusammengefasst werden. Dazu wird das erste Triple nicht mit einem Punkt, sondern mit einem Semikolon abgeschlossen. In der nächsten Zeile kommen dann nur noch Prädikate und Objekt vor. Das Subjekt wird aus der vorangegangenen Zeile wiederverwendet (siehe Quellcode \ref{lst:ttl-predicate-list}).
-\listingfile[caption=TTL-Datei mit einer Liste von Prädikaten, label=lst:ttl-predicate-list]{resources/codeSnippets/2TriplesPredicateList.ttl}
-
-\paragraph{Verschachtelung von Blank Nodes}
-Blank Nodes werden häufig eingesetzt, um komplexe Strukturen darzustellen. Im Beispiel setzt sich der Geburtstag aus Ort und Datum zusammen. Blank Nodes werden immer in einem bestimmten Kontext verwendet und verlieren ohne diesen Kontext ihre semantische Bedeutung. Der Knoten \lstinline|_:Geburtstag| beispielsweise ist bedeutungslos, wenn man nicht weiß, dass er zu Berta gehört. Aus diesem Grund ist es sinnvoll, dass der Knoten nicht durch einen URI auffindbar ist. Auf ihn kann nur zugegriffen werden, indem man vom Knoten Berta entlang dem Prädikat \lstinline|rel:geboren| navigiert.
-
-Auch für Blank Nodes gibt es eine Kurzschreibweise. Im Beispiel wird anstatt \lstinline|_:Geburtstag| ein Paar eckiger Klammers \lstinline|[]| geschrieben. Alle Prädikate, die von dem Blank Nodes ausgehen, werden zusammen mit dem Objekt in die eckigen Klammern geschrieben (siehe Quellcode \ref{lst:ttl-blank-node})
-\listingfile[caption=TTL-Datei mit verschachtelter Blank Node, label=lst:ttl-blank-node]{resources/codeSnippets/2TriplesBNode.ttl}
-
-\paragraph{RDF-Listen}
-Es gibt die Möglichkeit, von einem Knoten mehrere ausgehende Kanten zu spezifizieren, die den gleichen URN haben (siehe Quellcode \ref{lst:ttl-list} oben). Diese Modellierungmöglichkeit kann sehr einfach eingesetzt werden, aber hat den Nachteil dass die Reihenfolge der Objekte nicht spezifiziert ist. Das heißt, wenn ein Computerprogramm  die Turtle-Datei einliest, ist die Reihenfolge der Elemente zufällig bzw. abhängig von der Implementierung.
-
-Möchte man eine Liste definieren, bei der die Reihenfolge festgelegt ist, kann man RDF-Listen einsetzen (siehe Quellcode \ref{lst:ttl-list} unten). Bei der Syntax werden runde Klammern eingesetzt. Wenn Die TTL-Datei geparst wird, ist die Liste als Binärbaum dargestellt (siehe \ref{fig:rdflist}). Jeweils ein Ausgang des Knotens zeigt auf ein Listenelement, der andere Ausgang auf den Rest der Liste. Das Ende der Liste wird durch ein spezielles Objekt (rdf:nil) markiert.
+		\paragraph{RDF-Listen}
+		Es gibt die Möglichkeit, von einem Knoten mehrere ausgehende Kanten zu spezifizieren, die den gleichen URN haben (siehe Quellcode \ref{lst:ttl-list} oben). Diese Modellierungmöglichkeit kann sehr einfach eingesetzt werden, aber hat den Nachteil dass die Reihenfolge der Objekte nicht spezifiziert ist. Das heißt, wenn ein Computerprogramm  die Turtle-Datei einliest, ist die Reihenfolge der Elemente zufällig bzw. abhängig von der Implementierung.
+		
+		Möchte man eine Liste definieren, bei der die Reihenfolge festgelegt ist, kann man RDF-Listen einsetzen (siehe Quellcode \ref{lst:ttl-list} unten). Bei der Syntax werden runde Klammern eingesetzt. Wenn Die TTL-Datei geparst wird, ist die Liste als Binärbaum dargestellt (siehe \ref{fig:rdflist}). Jeweils ein Ausgang des Knotens zeigt auf ein Listenelement, der andere Ausgang auf den Rest der Liste. Das Ende der Liste wird durch ein spezielles Objekt (rdf:nil) markiert.
 
 \listingfile[caption=Knoten mit mehreren ausgehenden Kanten mit dem gleichen URI, label=lst:ttl-list]{resources/codeSnippets/2TriplesList.ttl}
 \begin{figure}
@@ -140,30 +145,71 @@ Um Aspektmodelle zu erstellen, wird das BAMM Aspect Meta Model eingesetzt. Die V
 
 Ein dritter Teil, der vom BAMM bereitgestellt wird, ist ein Katalog an vorgefertigten Modellelement-Instanzen. Dazu gehören zum Beispiel häufig eingesetzte Datenstrukturen wie Zeitreihen oder 3D-Vektoren. Dieser Teil wäre in der Spezifikation nicht zwangsweies nötig, aber bietet Anwendern den Komfort, dass häufig eingesetzte Modellierungen nicht selbst modelliert werden müssen.
 
-Das BAMM Aspect Meta Modell ist nicht komplett eigenständig, sondern basiert auf weitverbreitete Standards wie zum Beispiel
+Das BAMM Aspect Meta Modell ist nicht komplett eigenständig, sondern basiert auf weitverbreitete Standards wie zum Beispiel:
 \begin{itemize}
 	\item Das Resource Description Framework (RDF). \cite[vgl.][]{w3c2014rdf}
 	\item Standardisierte Datentypen des World Wide Web Consortiums (W3C). \cite[vgl.][]{w3c2004datatypes}
 	\item Einen Katalog an physikalischen Einheiten, der von der Wirtschaftskommission UNECE empfolen wird. \cite[vgl.][]{unece2021units}
 \end{itemize}
 
-\subsection{Modellelement-Klassen des BAMM}
+	\subsection{Modellelement-Klassen des BAMM}
 
-Im Folgenden wird ein Überblick über die wichtigsten Modellelemente gegeben und an Beispielen veranschaulicht. Um Inkonsistenten bei Übersetzungen zu vermeiden, werden stets die englischen Bezeichnungen gennant. Lediglich für Bezeichner mit einer ähnlichklingenden Übersetzung wird innerhalb von Sätzen die deutsche Bezeichnung verwendet, um den Lesefluss nicht zu stören.
+	Im Folgenden wird ein Überblick über die wichtigsten Modellelemente gegeben und an Beispielen veranschaulicht. Um Inkonsistenten bei Übersetzungen zu vermeiden, werden stets die englischen Bezeichnungen gennant. Lediglich für Bezeichner mit einer ähnlichklingenden Übersetzung wird innerhalb von Sätzen die deutsche Bezeichnung verwendet, um den Lesefluss nicht zu stören.
+	{\color{red} Diagramm mit Übersicht }
 
-\paragraph{Aspect} Die Modellelement-Klasse Aspekt ist das Wurzelelement eines Aspektmodells. Es beschreibt die bereitgestellten Daten eines Aspekt und ist somit eine Spezifikation für die Implementierung des Aspekts. Im Aspektmodell setzt sich der Aspekt aus einer Menge von Properties, Operations und Events zusammen.
+		\paragraph{Aspect} Die Modellelement-Klasse Aspekt ist das Wurzelelement eines Aspektmodells. Es beschreibt die bereitgestellten Daten eines Aspekt und ist somit eine Spezifikation für die Implementierung des Aspekts. Im Aspektmodell setzt sich der Aspekt aus einer Menge von Properties, Operations und Events zusammen.
+		
+		\paragraph{Property} Eine Property ist eine Eigenschaft, die das Objekt der echten Welt besitzt. Beispielhafte Properties sind Sensorwerte einer Maschine, die Fahrzeugidentifizierungsnummer eines Fahrzeugs oder die aktuelle Version einer installierten Software.
+		
+		\paragraph{Operation} Funktionalitäten, die eine Solution triggern kann, sodass das Asset diese ausführt, bezeichnet man als Operation. Operationen haben beliebig viele Eingabeargumente und einen optionalen Rückgabewert. Beispiele hierfür sind das Starten oder Stoppen einer Maschine oder das Auslesen eines Fehlerspeichers.
+		
+		\paragraph{Event} Ein Event ist ein einmaliges Ereignis, das zu einem bestimmten Zeitpunkt auftritt und an den Aspekt gemeldet werden sollte, damit dieser darauf reagieren kann. Für eine Maschine könnten sinnvolle Events zum Beispiel das manuelle Öffnen einer Türe sein, oder das Aufbrauchen von Rohmaterial. Events sind vor allem dann nützlich, wenn es eine Echtzeitverbindung zwischen Asset und Aspekt gibt.
+		
+		\paragraph{Characteristic} Eine Charakteristik beschreibt die Darstellung und den Datentyp einer Property. Wenn eine Solution und eine Aspekt wärend der Laufzeit über HHTP kommunizieren, dann werden Properties in einer JSON-Struktur dargestellt. Jede Property ist entweder ein nativer Typ (String, Zahl, boolescher Wert, Null) oder eine komplexere Struktur (Array, Objekt). Wie genau eine Property darstellt wird, spezifiziert eine Charakteristik. {\color{red} Enumeration, Collection}
+		
+		\paragraph{Entity} Für den Fall, dass eine Property als JSON-Objekt mit geschachtelten Werten dargestellt wird, werden Entities eingesetzt. Eine Entity ist ein Datentyp, der mehrere Unter-Properties besitzt. Um die Anwendung zu verdeutlichen, wird im Folgenden ein Beispiel dargestellt.
+		
+		Eine CNC-Fräsmaschine hat als Eigenschaft eine Position im dreidimensionalen Raum. Ein Aspekt soll diese Eigenschaft bereitstellen. Dafür wird im Aspektmodell eine Property mit dem Namen "`CurrentPosition"' erstellt. Die Property besitzt eine Charakteristik, die ein Entity als Datentyp festgelegt hat. Das Entity heißt "`Vector3D"' und besitzt die drei Properties "`X"', "`Y"' und "`Z"'. Für diese Properties werden dann zum Beispiel der Datentype Float festgelegt.
+		
+		\paragraph{Trait und Constraints}
+		{\color{red} Einschränkung für Werte durch Constraints. Beispiele RangeConstraint, RegularExpressionConstraint. Wrapping durch Trait}
+		\paragraph{Vererbung}
 
-\paragraph{Property} Eine Property ist eine Eigenschaft, die das Objekt der echten Welt besitzt. Beispielhafte Properties sind Sensorwerte einer Maschine, die Fahrzeugidentifizierungsnummer eines Fahrzeugs oder die aktuelle Version einer installierten Software.
-
-\paragraph{Operation} Funktionalitäten, die eine Solution triggern kann, sodass das Asset diese ausführt, bezeichnet man als Operation. Operationen haben beliebig viele Eingabeargumente und einen optionalen Rückgabewert. Beispiele hierfür sind das Starten oder Stoppen einer Maschine oder das Auslesen eines Fehlerspeichers.
-
-\paragraph{Event} Ein Event ist ein einmaliges Ereignis, das zu einem bestimmten Zeitpunkt auftritt und an den Aspekt gemeldet werden sollte, damit dieser darauf reagieren kann. Für eine Maschine könnten sinnvolle Events zum Beispiel das manuelle Öffnen einer Türe sein, oder das Aufbrauchen von Rohmaterial. Events sind vor allem dann nützlich, wenn es eine Echtzeitverbindung zwischen Asset und Aspekt gibt.
-
-\paragraph{Characteristic} Eine Charakteristik beschreibt die Darstellung und den Datentyp einer Property. Wenn eine Solution und eine Aspekt wärend der Laufzeit über HHTP kommunizieren, dann werden Properties in einer JSON-Struktur dargestellt. Jede Property ist entweder ein nativer Typ (String, Zahl, boolescher Wert, Null) oder eine komplexere Struktur (Array, Objekt). Wie genau eine Property darstellt wird, spezifiziert eine Charakteristik.
-
-\paragraph{Entity} Für den Fall, dass eine Property als JSON-Objekt mit geschachtelten Werten dargestellt wird, werden Entities eingesetzt. Eine Entity ist ein Datentyp, der mehrere Unter-Properties besitzt. Um die Anwendung zu verdeutlichen, wird im Folgenden ein Beispiel dargestellt.
-
-Eine CNC-Fräsmaschine hat als Eigenschaft eine Position im dreidimensionalen Raum. Ein Aspekt soll diese Eigenschaft bereitstellen. Dafür wird im Aspektmodell eine Property mit dem Namen "`CurrentPosition"' erstellt. Die Property besitzt eine Charakteristik, die ein Entity als Datentyp festgelegt hat. Das Entity heißt "`Vector3D"' und besitzt die drei Properties "`X"', "`Y"' und "`Z"'. Für diese Properties werden dann zum Beispiel der Datentype Float festgelegt.
+	\subsection{Beispiel eines Aspektmodells}
 
 \section{Software Defined Vehicle}
 
+	\subsection{Einführung}
+	\subsection{Stand der Technik}
+	\subsection{Vehicle Service Specification (VSS)}
+
+\section{Python}
+	\subsection{Einführung}
+		Python ist eine Programmiersprache, die sich dadurch auszeichnet, dass der Quellcode nicht kompliliert wird, sondern während der Laufzeit zeilenweise interpretiert wird. Im Vergleich zu anderen Programmiersprachen ergeben sich dadurch Stärken und Schwächen und somit auch bestimmte Einsatzgebiete. 
+		
+		Genauso wie es für kompilierte Programmiersprachen häufig unterschieldiche Compiler gibt, so gibt es für Python verschiedene Interpreter. Der weitverbreitetste heißt CPython und ist in C und Python geschrieben.
+		
+		Ein Python-Programm ist deutlich langsamer als komplierter Code, zum Beispiel mit C++. Das liegt daran, dass Quellcode in C++ nur zum Kompilieren benutzt wird, um leichtgewichtigen Assembly-Code zu generieren. Während der Laufzeit müssen lediglich noch die Instruktionen auf der Hardware durchgeführt werden.
+		Python-Code wird zwar zu C-Code und Maschinencode heruntergebrochen, dies jedoch erst während der Laufzeit, wofür sehr viel Rechenkapazität benötigt wird. Zum Importieren anderer Python-Dateien (Module) muss der Quellcode der Ziel-Datei wärhend der Laufzeit eingelesen und zu einem Syntax-Baum geparst werden. Auch dies benötigt sehr viel Rechenaufwand. In C++ ist kein Importieren zur Laufzeit nötig, da schon beim Komplieren und Linken all benötigten Programmteile vereinigt werden.
+		
+		Eine weitere Charakteristik von Python ist, dass es keine strenge Typisierung gibt. Während in Java oder C++ für jede Variable, jedes Eingabeargument und jeden Rückgabewert ein Typ angegeben werden muss, ist dies bei Python nicht nötig. Der Typ einer Variablen kann sich sogar durch eine Operation verändern.
+		
+		Python bietet die Möglichkeit objektorientiert zu programmieren. Das Klassenkonzept der Klassen ist ähnlich zu dem von C++ oder Java, aber unterscheidet sich bei genauerer Betrachtung.
+		
+		Während man in C++ und Java unter dem Begriff "`Objekt"' die Instanzen von Klassen meint, ist der Begriff in Python viel weitreichender. Genau genommen sind fast alle Datenstrukturen in Python Objekte. Dazu zählen zum Beispiel:
+		\begin{itemize}
+			\item \textbf{Instanzobjekte} Jedes Mal, wenn eine neue Instanz einer Klasse erstellt wird, erzeugt Python ein Objekt, das Referenzen zu allen Felder (Membervariablen) besitzt. 			
+			\item \textbf{Klassenobjekte} Nicht nur Instanzen von Klassen, sondern auch Klassen selbst, sind Objekte. Für jede Klasse, die in einem Programm deklariert ist, gibt es ein Objekt im Speicher. Dieses enthält zum Beispiel Referenzen zu den Methoden und zu den statischen Feldern.
+			\item \textbf{Funktionen} Eine Funktion enthält den Syntax-Baum der Python-Instruktionen und Informationen über Eingabeargumente und Rückgabewert.
+			\item \textbf{Modul} Module sind Abkapselungen von Python-Code in separate Dateien und Order. Ein Modul, das in ein Programm importiert wird, liegt als Objekt im Speicher und enthält Referenzen zu den enthaltenen Inhalten wie Klassen, Funktionen oder globalen Variablen.
+			\item \textbf{Builtin-Datentypen} Datentypen, die von Python mitgeliefert werden und nicht vom Entwickler selbst erstellt werden müssen, sind ebenfalls Objekte. Die Datentypen "`int"', "`str"' und "`float"' sind Klassenobjekte und die konkreten Werte wie "`10"', "`hello"' oder "`2.4"' sind Instanzobjekte.
+			\item \textbf{True und False} In vielen anderen Programmiersprachen sind Wahrheitswerte ein einfacher Wert, der als 0 oder 1 im Speicher steht. In Python gibt es die Klasse "`bool"' und davon die beiden Instanzen "`True"' und "`False"'. Die beiden Instanzen werden beim Starten des Programms erzeugt und es können keine neuen Instanzen erstellt werden.
+		\end{itemize}
+		
+	\subsection{Einsatzgebiete}
+	\subsection{Werkzeuge}
+	
+\section{weitere Technologien}
+	\subsection{Open API Specification}
+	\subsection{Authentifizierung mit OAuth2}
+	
