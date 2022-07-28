@@ -185,16 +185,18 @@ Das BAMM Aspect Meta Modell ist nicht komplett eigenständig, sondern basiert au
 
 \section{Python}
 	\subsection{Einführung}
-		Python ist eine Programmiersprache, die sich dadurch auszeichnet, dass der Quellcode nicht kompliliert wird, sondern während der Laufzeit zeilenweise interpretiert wird. Im Vergleich zu anderen Programmiersprachen ergeben sich dadurch Stärken und Schwächen und somit auch bestimmte Einsatzgebiete. 
+		\paragraph{Interpretation statt Kompilierung} Python ist eine Programmiersprache, die sich dadurch auszeichnet, dass der Quellcode nicht kompliliert wird, sondern während der Laufzeit Instruktion für Instruktion interpretiert wird. Im Vergleich zu anderen Programmiersprachen ergeben sich dadurch Stärken und Schwächen und somit auch bestimmte Einsatzgebiete. 
 		
 		Genauso wie es für kompilierte Programmiersprachen häufig unterschieldiche Compiler gibt, so gibt es für Python verschiedene Interpreter. Der weitverbreitetste heißt CPython und ist in C und Python geschrieben.
 		
-		Ein Python-Programm ist deutlich langsamer als komplierter Code, zum Beispiel mit C++. Das liegt daran, dass Quellcode in C++ nur zum Kompilieren benutzt wird, um leichtgewichtigen Assembly-Code zu generieren. Während der Laufzeit müssen lediglich noch die Instruktionen auf der Hardware durchgeführt werden.
-		Python-Code wird zwar zu C-Code und Maschinencode heruntergebrochen, dies jedoch erst während der Laufzeit, wofür sehr viel Rechenkapazität benötigt wird. Zum Importieren anderer Python-Dateien (Module) muss der Quellcode der Ziel-Datei wärhend der Laufzeit eingelesen und zu einem Syntax-Baum geparst werden. Auch dies benötigt sehr viel Rechenaufwand. In C++ ist kein Importieren zur Laufzeit nötig, da schon beim Komplieren und Linken all benötigten Programmteile vereinigt werden.
+		\paragraph{Performance} Ein Python-Programm ist deutlich langsamer als komplierter Code, zum Beispiel mit C++. Das liegt daran, dass Quellcode in C++ nur zum Kompilieren benutzt wird, um leichtgewichtigen Assembly-Code zu generieren. Während der Laufzeit müssen lediglich noch die Instruktionen auf der Hardware durchgeführt werden.
+		Python-Code wird während der Laufzeit zu Byte-Code und Maschinencode heruntergebrochen, wofür sehr viel Rechenkapazität benötigt wird. Zum Importieren anderer Python-Dateien (Module) muss der Quellcode der Ziel-Datei wärhend der Laufzeit eingelesen und zu einem Syntax-Baum geparst werden. Auch dies benötigt sehr viel Rechenaufwand. In C++ ist kein Importieren zur Laufzeit nötig, da schon beim Komplieren und Linken all benötigten Programmteile vereinigt werden. Benchmarks zeigen, dass ein C++-Programm für rechenaufwändige Algorithmen bis zu einhundert mal so schnell terminiert. Ein allgemeingültiger Wert lässt sich jedoch nicht messen, da die Performance immer vom Algorithmus und der Implementierung abhängig ist. \cite[vgl.][]{banchmarkgame2022cpppython}
 		
-		Eine weitere Charakteristik von Python ist, dass es keine strenge Typisierung gibt. Während in Java oder C++ für jede Variable, jedes Eingabeargument und jeden Rückgabewert ein Typ angegeben werden muss, ist dies bei Python nicht nötig. Der Typ einer Variablen kann sich sogar durch eine Operation verändern.
+		Eine Praktik, um die Performance zu verbessern, ist das Abspeichern des Bytecodes in einem Cache. CPython macht dies, indem es den verarbeiteten Code einer \lstinline|.py|-Datei in einer \lstinline|.pyc|-Datei speichert und bei erneutem Import wiederverwendet. \cite[vgl.][]{waraw2009bytecode}
 		
-		Python bietet die Möglichkeit objektorientiert zu programmieren. Das Klassenkonzept der Klassen ist ähnlich zu dem von C++ oder Java, aber unterscheidet sich bei genauerer Betrachtung.
+		\paragraph{Typisierung} Eine weitere Charakteristik von Python ist, dass es keine strenge Typisierung gibt. Während in Java oder C++ für jede Variable, jedes Eingabeargument und jeden Rückgabewert ein Typ angegeben werden muss, ist dies bei Python nicht nötig. Der Typ einer Variablen kann sich sogar durch eine Operation verändern.
+		
+		\paragraph{Objekte} Python bietet die Möglichkeit objektorientiert zu programmieren. Das Klassenkonzept der Klassen ist ähnlich zu dem von C++ oder Java, aber unterscheidet sich bei genauerer Betrachtung.
 		
 		Während man in C++ und Java unter dem Begriff "`Objekt"' die Instanzen von Klassen meint, ist der Begriff in Python viel weitreichender. Genau genommen sind fast alle Datenstrukturen in Python Objekte. Dazu zählen zum Beispiel:
 		\begin{itemize}
@@ -208,6 +210,11 @@ Das BAMM Aspect Meta Modell ist nicht komplett eigenständig, sondern basiert au
 		
 	\subsection{Einsatzgebiete}
 	\subsection{Werkzeuge}
+		Für viele Use-Cases gibt es Python-Bibliotheken von Drittanbietern (auch Pakete genannt), die der Entwickler nutzen kann, um Entwicklungszeit einzusparen. Viele verfügbaren Pakete sind sehr robust und haben sich als De-Facto-Standard etabliert. Einige der eingesetzten Pakete werden im Folgenden vorgestellt.
+		\paragraph{Poetry} Beim Einsatz von Drittanbieter-Paketen entsteht oft eine lange Liste an Abhängigkeiten, da viele Pakete weitere Pakete benötigen. Poetry ist ein Werkzeug, das die Installation aller Abhängigkeiten in der benötigten Version übernimmt. Poetry arbeitet mit virtuellen Umgebungen, also mit einem isolierten Bereichen im Dateisystem für jedes Projekt. Die virtuelle Umgebung enthält jeweils eine ausführbare Python-Datei (z.B. .exe unter Windows) sowie die gesamten Drittanbieter-Pakete. Dadurch ist sichergestellt, dass getrennte Projekte, die die gleichen Abhängigkeiten besitzen, nicht aufeinander einwirken. Virtuelle Umgebungen haben auch den Vorteil, dass sie unabhängig von bereits installierten Paket-Versionen sind, und somit die Verteilung auf andere Computer erleichtern.
+		
+		Poetry bietet außerdem Funktionen zum Packen und Veröffentlichen von Paketen.
+		\paragraph{title}
 	
 \section{weitere Technologien}
 	\subsection{Open API Specification}
