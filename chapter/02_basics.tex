@@ -184,17 +184,39 @@ Das BAMM Aspect Meta Modell ist nicht komplett eigenständig, sondern basiert au
 	\subsection{Vehicle Service Specification (VSS)}
 
 \section{Python}
+	Python ist eine Programmiersprache 
+	
 	\subsection{Einführung}
-		\paragraph{Interpretation statt Kompilierung} Python ist eine Programmiersprache, die sich dadurch auszeichnet, dass der Quellcode nicht kompliliert wird, sondern während der Laufzeit Instruktion für Instruktion interpretiert wird. Im Vergleich zu anderen Programmiersprachen ergeben sich dadurch Stärken und Schwächen und somit auch bestimmte Einsatzgebiete. 
+		\paragraph{Interpretation statt Kompilierung} Python zeichnet sich dadurch aus, dass der Quellcode nicht kompliliert wird, sondern während der Laufzeit Instruktion für Instruktion interpretiert wird. Im Vergleich zu anderen Programmiersprachen ergeben sich dadurch Stärken und Schwächen und somit auch bestimmte Einsatzgebiete. 
 		
-		Genauso wie es für kompilierte Programmiersprachen häufig unterschieldiche Compiler gibt, so gibt es für Python verschiedene Interpreter. Der weitverbreitetste heißt CPython und ist in C und Python geschrieben.
+		Um Python-Code auszuführen, benötigt man eine Implementierung der Sprache, die den Code verarbeiten kann und die Instruktionen ausführt. Solch ein Programm bezeichnet man als Interpreter. Genauso wie es für kompilierte Programmiersprachen häufig unterschiedliche Compiler gibt, so gibt es für Python verschiedene Interpreter. Der weitverbreitetste heißt CPython und ist in C und Python geschrieben. \cite[vgl.][S. 25]{python2014brochure}
 		
 		\paragraph{Performance} Ein Python-Programm ist deutlich langsamer als komplierter Code, zum Beispiel mit C++. Das liegt daran, dass Quellcode in C++ nur zum Kompilieren benutzt wird, um leichtgewichtigen Assembly-Code zu generieren. Während der Laufzeit müssen lediglich noch die Instruktionen auf der Hardware durchgeführt werden.
-		Python-Code wird während der Laufzeit zu Byte-Code und Maschinencode heruntergebrochen, wofür sehr viel Rechenkapazität benötigt wird. Zum Importieren anderer Python-Dateien (Module) muss der Quellcode der Ziel-Datei wärhend der Laufzeit eingelesen und zu einem Syntax-Baum geparst werden. Auch dies benötigt sehr viel Rechenaufwand. In C++ ist kein Importieren zur Laufzeit nötig, da schon beim Komplieren und Linken all benötigten Programmteile vereinigt werden. Benchmarks zeigen, dass ein C++-Programm für rechenaufwändige Algorithmen bis zu einhundert mal so schnell terminiert. Ein allgemeingültiger Wert lässt sich jedoch nicht messen, da die Performance immer vom Algorithmus und der Implementierung abhängig ist. \cite[vgl.][]{banchmarkgame2022cpppython}
+		Bei Python hingegen wird der Code während der Laufzeit zu Byte-Code und anschließend zu Maschinencode verarbeitet, wofür sehr viel Rechenkapazität benötigt wird. Zum Importieren anderer Python-Dateien (Module) muss der Quellcode der Ziel-Datei während der Laufzeit eingelesen und zu einem Syntax-Baum geparst werden. Auch dies benötigt sehr viel Rechenaufwand. In C++ ist kein Importieren zur Laufzeit nötig, da schon beim Komplieren und Linken all benötigten Programmteile vereinigt werden. Benchmarks zeigen, dass ein C++-Programm für rechenaufwändige Algorithmen bis zu einhundert mal so schnell terminiert. Ein allgemeingültiger Wert lässt sich jedoch nicht messen, da die Performance immer vom Algorithmus und der Implementierung abhängig ist. \cite[vgl.][]{banchmarkgame2022cpppython}
 		
 		Eine Praktik, um die Performance zu verbessern, ist das Abspeichern des Bytecodes in einem Cache. CPython macht dies, indem es den verarbeiteten Code einer \lstinline|.py|-Datei in einer \lstinline|.pyc|-Datei speichert und bei erneutem Import wiederverwendet. \cite[vgl.][]{waraw2009bytecode}
 		
-		\paragraph{Typisierung} Eine weitere Charakteristik von Python ist, dass es keine strenge Typisierung gibt. Während in Java oder C++ für jede Variable, jedes Eingabeargument und jeden Rückgabewert ein Typ angegeben werden muss, ist dies bei Python nicht nötig. Der Typ einer Variablen kann sich sogar durch eine Operation verändern.
+		\paragraph{Typisierung} Eine weitere Charakteristik von Python ist, dass es keine strenge Typisierung gibt. Während in Java oder C++ für jede Variable, jedes Eingabeargument und jeden Rückgabewert ein Typ angegeben werden muss, ist dies bei Python nicht nötig. Der Typ einer Variablen kann sich sogar durch eine Operation verändern. Anzumerken ist auch, dass Variablen nicht deklariert werden müssen bevor sie zugewiesen werden.
+			
+		\paragraph{Syntax} Die Syntax von Python gilt als sehr gut lesbar \cite[vgl.][]{bassi2007primer}. Die Strukturierung von Codeblöcken erfolgt durch Einrückung von Zeilen. Klammern sind an vielen Stellen nicht nötig. Viele Ausdrücke, in Bedingungen und Schleifen können sehr intuitive formuliert werden. 
+		Im Folgenden ist ein Vergleich zwischen C- und Python-Syntax zweier Ausdrücke dargestellt \ref{lst:c-code}, \ref{lst:python}.
+	
+\begin{lstlisting}[caption=Beispiel Code in C, label=lst:c-code]
+if(x>=5 && x<= 10) {
+	return x;
+}
+for(int i = 0; i < sizeof(items) / sizeof(items[0]); i++) {
+	printf(items[i]);
+}
+\end{lstlisting}
+	
+\begin{lstlisting}[caption=Beispiel Code in Python, label=lst:python]
+if 5 <= x <= 10:
+	return x
+for i in items:
+	print(i)
+\end{lstlisting}		
+				
 		
 		\paragraph{Objekte} Python bietet die Möglichkeit objektorientiert zu programmieren. Das Klassenkonzept der Klassen ist ähnlich zu dem von C++ oder Java, aber unterscheidet sich bei genauerer Betrachtung.
 		
@@ -209,6 +231,13 @@ Das BAMM Aspect Meta Modell ist nicht komplett eigenständig, sondern basiert au
 		\end{itemize}
 		
 	\subsection{Einsatzgebiete}
+		Die Bereiche, für die Python als Programmiersprache eingesetzt wird, sind sehr breit. Gegenüber anderer Programmiersprachen ist Python einfach zu lernen. \cite[vgl.][]{saabith2019python} Des weiteren kann das selbe Problem meist in weniger Zeilen Code gelöst werden, verglichen mit anderen Programmiersprachen. Typischerweise 
+		
+		Python ist aufgrund seiner geringeren Performance nicht für Anwendungen mit wenig Rechenkapazität und kleinem Speicher geeignet, wie Steuergeräte. Für sicherheitskritische Anwendungen im Kontext eingebetteter Systeme, ist Python im Moment keine Option, da es für Python keine Standards wie MISRA gibt.
+		
+		Der verbreitetste Python-Interpreter CPython nutzt zur Erstellung von Objekten den Heap. Zur Freigabe von Speicher wird ein Garbage Collector eingesetzt. Beide Eigenschaften sprechen gegen den Einsatz auf eingebetteten Systemen, da die Speicherallokation und -freigabe unkontrolliert und quasi zufällig abläuft und den Code somit kaum verifizierbar macht. Es gibt jedoch andere Python-Interpreter, die speziell für eingebettete System konzipiert sind, wie MicroPython \cite[vgl.][]{george2018micropy}. Solche Implementierungen, die für ein bestimmtes Einsatzgebiet optimiert sind, könnten in Zukunft immer relevanter werden.
+		
+		
 	\subsection{Werkzeuge}
 		Für viele Use-Cases gibt es Python-Bibliotheken von Drittanbietern (auch Pakete genannt), die der Entwickler nutzen kann, um Entwicklungszeit einzusparen. Viele verfügbaren Pakete sind sehr robust und haben sich als De-Facto-Standard etabliert. Einige der eingesetzten Pakete werden im Folgenden vorgestellt.
 		\paragraph{Poetry} Beim Einsatz von Drittanbieter-Paketen entsteht oft eine lange Liste an Abhängigkeiten, da viele Pakete weitere Pakete benötigen. Poetry ist ein Werkzeug, das die Installation aller Abhängigkeiten in der benötigten Version übernimmt. Poetry arbeitet mit virtuellen Umgebungen, also mit einem isolierten Bereichen im Dateisystem für jedes Projekt. Die virtuelle Umgebung enthält jeweils eine ausführbare Python-Datei (z.B. .exe unter Windows) sowie die gesamten Drittanbieter-Pakete. Dadurch ist sichergestellt, dass getrennte Projekte, die die gleichen Abhängigkeiten besitzen, nicht aufeinander einwirken. Virtuelle Umgebungen haben auch den Vorteil, dass sie unabhängig von bereits installierten Paket-Versionen sind, und somit die Verteilung auf andere Computer erleichtern.
