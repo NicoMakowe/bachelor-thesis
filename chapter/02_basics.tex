@@ -180,6 +180,10 @@ Das BAMM Aspect Meta Modell ist nicht komplett eigenständig, sondern basiert au
 \section{Software Defined Vehicle}
 
 	\subsection{Einführung}
+	Software Defined Vehicle (Software-definiertes Fahrzeug) ist ein Begriff, der die Zukunftsvision des modernen Fahrzeugs beschreibt. In der Vergangenheit wurde das Fahrerlebnis vor allem durch die Hardware bestimmt. Ein gutes Auto musste eine gute Ausstattung besitzen. Heutzutage werden die Software-Komponenten im Fahrzeug immer wichtiger, zum Beispiel bei Fahrerassistenzsystemen und Komfortsystemen, wie Sprachsteuerung.
+	
+	In der Zukunft wird die Software einen immer größeren Anteil im Fahrzeug einnehmen. Die Software sollte nicht für jeden Fahrzeugtyp angepasst werden müssen, sondern kompatibel mit unterschiedlichen Modellen oder sogar unterschiedlichen Herstellern sein. Zusätzlich wird das Auto der Zukunft kein isoliertes System sein, sondern mit seiner Umwelt kommunizieren. . All diese Trends sind Teil des Software-definierten Fahrzeugs.
+	
 	\subsection{Stand der Technik}
 	\subsection{Vehicle Service Specification (VSS)}
 
@@ -201,22 +205,10 @@ Das BAMM Aspect Meta Modell ist nicht komplett eigenständig, sondern basiert au
 		\paragraph{Syntax} Die Syntax von Python gilt als sehr gut lesbar \cite[vgl.][]{bassi2007primer}. Die Strukturierung von Codeblöcken erfolgt durch Einrückung von Zeilen. Klammern sind an vielen Stellen nicht nötig. Viele Ausdrücke, in Bedingungen und Schleifen können sehr intuitive formuliert werden. 
 		Im Folgenden ist ein Vergleich zwischen C- und Python-Syntax zweier Ausdrücke dargestellt \ref{lst:c-code}, \ref{lst:python}.
 	
-\begin{lstlisting}[caption=Beispiel Code in C, label=lst:c-code]
-if(x>=5 && x<= 10) {
-	return x;
-}
-for(int i = 0; i < sizeof(items) / sizeof(items[0]); i++) {
-	printf(items[i]);
-}
-\end{lstlisting}
-	
-\begin{lstlisting}[caption=Beispiel Code in Python, label=lst:python]
-if 5 <= x <= 10:
-	return x
-for i in items:
-	print(i)
-\end{lstlisting}		
-				
+\listingfile[caption=Beispiel Code in C, label=lst:c-code]{resources/codeSnippets/2CCode.c}
+
+\listingfile[caption=Beispiel Code in Python, label=lst:python]{resources/codeSnippets/2PythonCode.py}
+			
 		
 		\paragraph{Objekte} Python bietet die Möglichkeit objektorientiert zu programmieren. Das Klassenkonzept der Klassen ist ähnlich zu dem von C++ oder Java, aber unterscheidet sich bei genauerer Betrachtung.
 		
