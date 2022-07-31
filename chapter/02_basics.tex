@@ -188,54 +188,54 @@ Das BAMM Aspect Meta Modell ist nicht komplett eigenständig, sondern basiert au
 	\subsection{Vehicle Service Specification (VSS)}
 
 \section{Python}
-	Python ist eine Programmiersprache 
+	Python ist eine höhere Programmiersprache, die zur Lösung vieler unterschiedlicher Probleme eingesetzt werden kann. Die Python Software Foundation ist für die Entwicklung der Sprache zuständig \cite[vgl.][]{python2022usecases}. Im Folgenden wird ein kurzer Überblick über die Eigenschaften von Python und möglichen Anwendungsfälle gegeben.
 	
-	\subsection{Einführung}
+	\subsection{Charakteristiken} \label{sec:py-characteristics}
 		\paragraph{Interpretation statt Kompilierung} Python zeichnet sich dadurch aus, dass der Quellcode nicht kompliliert wird, sondern während der Laufzeit Instruktion für Instruktion interpretiert wird. Im Vergleich zu anderen Programmiersprachen ergeben sich dadurch Stärken und Schwächen und somit auch bestimmte Einsatzgebiete. 
 		
-		Um Python-Code auszuführen, benötigt man eine Implementierung der Sprache, die den Code verarbeiten kann und die Instruktionen ausführt. Solch ein Programm bezeichnet man als Interpreter. Genauso wie es für kompilierte Programmiersprachen häufig unterschiedliche Compiler gibt, so gibt es für Python verschiedene Interpreter. Der weitverbreitetste heißt CPython und ist in C und Python geschrieben. \cite[vgl.][S. 25]{python2014brochure}
+		Um Python-Code auszuführen, benötigt man eine Implementierung der Sprache, die den Code verarbeiten kann und die Instruktionen ausführt. Solch eine Implementierung bezeichnet man als Interpreter. Genauso wie es für kompilierte Programmiersprachen häufig unterschiedliche Compiler gibt, so gibt es für Python verschiedene Interpreter. Der weitverbreitetste heißt CPython und ist in C und Python geschrieben. CPython wird von der Python Software Foundation veröffentlicht und wird als De-Facto-Standard der Sprache angesehen \cite[vgl.][S. 25]{python2014brochure} \cite{github2022cpython}.
 		
 		\paragraph{Performance} Ein Python-Programm ist deutlich langsamer als komplierter Code, zum Beispiel mit C++. Das liegt daran, dass Quellcode in C++ nur zum Kompilieren benutzt wird, um leichtgewichtigen Assembly-Code zu generieren. Während der Laufzeit müssen lediglich noch die Instruktionen auf der Hardware durchgeführt werden.
 		Bei Python hingegen wird der Code während der Laufzeit zu Byte-Code und anschließend zu Maschinencode verarbeitet, wofür sehr viel Rechenkapazität benötigt wird. Zum Importieren anderer Python-Dateien (Module) muss der Quellcode der Ziel-Datei während der Laufzeit eingelesen und zu einem Syntax-Baum geparst werden. Auch dies benötigt sehr viel Rechenaufwand. In C++ ist kein Importieren zur Laufzeit nötig, da schon beim Komplieren und Linken all benötigten Programmteile vereinigt werden. Benchmarks zeigen, dass ein C++-Programm für rechenaufwändige Algorithmen bis zu einhundert mal so schnell terminiert. Ein allgemeingültiger Wert lässt sich jedoch nicht messen, da die Performance immer vom Algorithmus und der Implementierung abhängig ist. \cite[vgl.][]{banchmarkgame2022cpppython}
 		
-		Eine Praktik, um die Performance zu verbessern, ist das Abspeichern des Bytecodes in einem Cache. CPython macht dies, indem es den verarbeiteten Code einer \lstinline|.py|-Datei in einer \lstinline|.pyc|-Datei speichert und bei erneutem Import wiederverwendet. \cite[vgl.][]{waraw2009bytecode}
-		
 		\paragraph{Typisierung} Eine weitere Charakteristik von Python ist, dass es keine strenge Typisierung gibt. Während in Java oder C++ für jede Variable, jedes Eingabeargument und jeden Rückgabewert ein Typ angegeben werden muss, ist dies bei Python nicht nötig. Der Typ einer Variablen kann sich sogar durch eine Operation verändern. Anzumerken ist auch, dass Variablen nicht deklariert werden müssen bevor sie zugewiesen werden.
-			
-		\paragraph{Syntax} Die Syntax von Python gilt als sehr gut lesbar \cite[vgl.][]{bassi2007primer}. Die Strukturierung von Codeblöcken erfolgt durch Einrückung von Zeilen. Klammern sind an vielen Stellen nicht nötig. Viele Ausdrücke, in Bedingungen und Schleifen können sehr intuitive formuliert werden. 
-		Im Folgenden ist ein Vergleich zwischen C- und Python-Syntax zweier Ausdrücke dargestellt \ref{lst:c-code}, \ref{lst:python}.
+		
+		Seit einiger Zeit ist es möglich, sogenannte "`Type Hints"' anzugeben, also Informationen darüber, welchen Typ eine Variable, ein Eingabeargument oder ein Rückgabewert besitzt. Diese dienen als Komfort zur Entwicklungszeit, da Entwicklungsumgebungen (IDEs) Autovervollständigung und ähnliches anbieten können. Während der Laufzeit eines Python-Programms werden Type Hints ignoriert.
+		
+		\paragraph{Syntax} Die Syntax von Python gilt als sehr gut lesbar \cite[vgl.][]{bassi2007primer}. Die Strukturierung von Codeblöcken erfolgt durch Einrückung von Zeilen. Semikolons nach Instruktionen und Klammern zur Strukturierung sind nicht nötig. Ausdrücke, in Bedingungen und Schleifen können häufig sehr intuitiv formuliert werden. 
+		Im Folgenden ist ein Vergleich zwischen C- und Python-Syntax äquivalenter Ausdrücke dargestellt (siehe Quellcode \ref{lst:c-code} und \ref{lst:python}).
 	
-\listingfile[caption=Beispiel Code in C, label=lst:c-code]{resources/codeSnippets/2CCode.c}
+\listingfile[caption=Beispielcode in C, label=lst:c-code]{resources/codeSnippets/2CCode.c}
 
-\listingfile[caption=Beispiel Code in Python, label=lst:python]{resources/codeSnippets/2PythonCode.py}
+\listingfile[caption=Beispielcode in Python, label=lst:python]{resources/codeSnippets/2PythonCode.py}
 			
 		
-		\paragraph{Objekte} Python bietet die Möglichkeit objektorientiert zu programmieren. Das Klassenkonzept der Klassen ist ähnlich zu dem von C++ oder Java, aber unterscheidet sich bei genauerer Betrachtung.
+		\paragraph{Objekte} Python bietet die Möglichkeit objektorientiert zu programmieren. Das Klassenkonzept ist ähnlich zu dem von C++ oder Java, aber unterscheidet sich bei genauerer Betrachtung.
 		
 		Während man in C++ und Java unter dem Begriff "`Objekt"' die Instanzen von Klassen meint, ist der Begriff in Python viel weitreichender. Genau genommen sind fast alle Datenstrukturen in Python Objekte. Dazu zählen zum Beispiel:
 		\begin{itemize}
 			\item \textbf{Instanzobjekte} Jedes Mal, wenn eine neue Instanz einer Klasse erstellt wird, erzeugt Python ein Objekt, das Referenzen zu allen Felder (Membervariablen) besitzt. 			
 			\item \textbf{Klassenobjekte} Nicht nur Instanzen von Klassen, sondern auch Klassen selbst, sind Objekte. Für jede Klasse, die in einem Programm deklariert ist, gibt es ein Objekt im Speicher. Dieses enthält zum Beispiel Referenzen zu den Methoden und zu den statischen Feldern.
-			\item \textbf{Funktionen} Eine Funktion enthält den Syntax-Baum der Python-Instruktionen und Informationen über Eingabeargumente und Rückgabewert.
-			\item \textbf{Modul} Module sind Abkapselungen von Python-Code in separate Dateien und Order. Ein Modul, das in ein Programm importiert wird, liegt als Objekt im Speicher und enthält Referenzen zu den enthaltenen Inhalten wie Klassen, Funktionen oder globalen Variablen.
+			\item \textbf{Funktionen} Eine Funktion enthält den Syntax-Baum der Python-Instruktionen und Informationen über Eingabeargumente und Rückgabewert. Jedes Funktions-Objekt besitzt eine Methode \lstinline|__call__()|, mit der die Funktion ausgeführt werden kann.
+			\item \textbf{Module und Pakete} Ein Modul ist Abkapselungen von Python-Code in einer separate Datei. Ein Paket ist eine Abkapselung in einem separaten Order. Ein Modul oder Paket, das in ein Programm importiert wird, liegt als Objekt im Speicher und enthält Referenzen zu den enthaltenen Inhalten wie Klassen, Funktionen oder Untermodulen.
 			\item \textbf{Builtin-Datentypen} Datentypen, die von Python mitgeliefert werden und nicht vom Entwickler selbst erstellt werden müssen, sind ebenfalls Objekte. Die Datentypen "`int"', "`str"' und "`float"' sind Klassenobjekte und die konkreten Werte wie "`10"', "`hello"' oder "`2.4"' sind Instanzobjekte.
-			\item \textbf{True und False} In vielen anderen Programmiersprachen sind Wahrheitswerte ein einfacher Wert, der als 0 oder 1 im Speicher steht. In Python gibt es die Klasse "`bool"' und davon die beiden Instanzen "`True"' und "`False"'. Die beiden Instanzen werden beim Starten des Programms erzeugt und es können keine neuen Instanzen erstellt werden.
+			\item \textbf{True und False} In vielen anderen Programmiersprachen ist ein Wahrheitswert ein einfacher Wert, der als 0 oder 1 im Speicher steht. In Python gibt es die Klasse "`bool"' und davon die beiden Instanzen "`True"' und "`False"'. Die beiden Instanzen werden beim Starten des Programms erzeugt und es können keine neuen Instanzen erstellt werden.
 		\end{itemize}
-		
-	\subsection{Einsatzgebiete}
-		Die Bereiche, für die Python als Programmiersprache eingesetzt wird, sind sehr breit. Gegenüber anderer Programmiersprachen ist Python einfach zu lernen. \cite[vgl.][]{saabith2019python} Des weiteren kann das selbe Problem meist in weniger Zeilen Code gelöst werden, verglichen mit anderen Programmiersprachen. Typischerweise 
+	\subsection{Einsatzgebiete}		
+		Die Bereiche, für die Python als Programmiersprache eingesetzt wird, sind sehr breit. Gegenüber anderer Programmiersprachen ist Python einfach zu lernen. \cite[vgl.][]{saabith2019python} Des weiteren kann das selbe Problem meist in weniger Zeilen Code gelöst werden, verglichen mit anderen Programmiersprachen \cite[vgl.][S. 100]{mcconnell2009code}.
+		Aus diesen Gründen, eignet sich Python vor allem dort, wo genug Performance zur Verfügung steht und mit wenig Entwicklungszeit ein großer Fortschritt erzielt werden soll.
 		
 		Python ist aufgrund seiner geringeren Performance nicht für Anwendungen mit wenig Rechenkapazität und kleinem Speicher geeignet, wie Steuergeräte. Für sicherheitskritische Anwendungen im Kontext eingebetteter Systeme, ist Python im Moment keine Option, da es für Python keine Standards wie MISRA gibt.
 		
-		Der verbreitetste Python-Interpreter CPython nutzt zur Erstellung von Objekten den Heap. Zur Freigabe von Speicher wird ein Garbage Collector eingesetzt. Beide Eigenschaften sprechen gegen den Einsatz auf eingebetteten Systemen, da die Speicherallokation und -freigabe unkontrolliert und quasi zufällig abläuft und den Code somit kaum verifizierbar macht. Es gibt jedoch andere Python-Interpreter, die speziell für eingebettete System konzipiert sind, wie MicroPython \cite[vgl.][]{george2018micropy}. Solche Implementierungen, die für ein bestimmtes Einsatzgebiet optimiert sind, könnten in Zukunft immer relevanter werden.
-		
+		Weiterhin nutzt der verbreitetste Python-Interpreter CPython zur Erstellung von Objekten den Heap. Zur Freigabe von Speicher wird ein Garbage Collector eingesetzt. Beide Eigenschaften sprechen gegen den Einsatz auf eingebetteten Systemen, da die Speicherallokation und -freigabe unkontrolliert und quasi zufällig abläuft und den Code somit kaum verifizierbar macht. Es gibt andere Python-Interpreter, die speziell für eingebettete System konzipiert sind, wie MicroPython \cite[vgl.][]{george2018micropy}. Solche angepassten Interpreter sind aktuell nicht etabliert.
 		
 	\subsection{Werkzeuge}
 		Für viele Use-Cases gibt es Python-Bibliotheken von Drittanbietern (auch Pakete genannt), die der Entwickler nutzen kann, um Entwicklungszeit einzusparen. Viele verfügbaren Pakete sind sehr robust und haben sich als De-Facto-Standard etabliert. Einige der eingesetzten Pakete werden im Folgenden vorgestellt.
-		\paragraph{Poetry} Beim Einsatz von Drittanbieter-Paketen entsteht oft eine lange Liste an Abhängigkeiten, da viele Pakete weitere Pakete benötigen. Poetry ist ein Werkzeug, das die Installation aller Abhängigkeiten in der benötigten Version übernimmt. Poetry arbeitet mit virtuellen Umgebungen, also mit einem isolierten Bereichen im Dateisystem für jedes Projekt. Die virtuelle Umgebung enthält jeweils eine ausführbare Python-Datei (z.B. .exe unter Windows) sowie die gesamten Drittanbieter-Pakete. Dadurch ist sichergestellt, dass getrennte Projekte, die die gleichen Abhängigkeiten besitzen, nicht aufeinander einwirken. Virtuelle Umgebungen haben auch den Vorteil, dass sie unabhängig von bereits installierten Paket-Versionen sind, und somit die Verteilung auf andere Computer erleichtern.
+		\paragraph{Poetry} Beim Einsatz von Drittanbieter-Paketen entsteht oft eine lange Liste an Abhängigkeiten, da viele Pakete weitere Pakete benötigen. Poetry ist ein Werkzeug, das die Installation aller Abhängigkeiten in der benötigten Version übernimmt. Poetry arbeitet mit virtuellen Umgebungen, also mit einem isolierten Bereichen im Dateisystem für jedes Projekt. Dadurch ist sichergestellt, dass getrennte Projekte, die die gleichen Abhängigkeiten besitzen, nicht aufeinander einwirken. Virtuelle Umgebungen haben auch den Vorteil, dass sie unabhängig von bereits installierten Paket-Versionen sind, und somit die Verteilung auf andere Geräte erleichtern.
 		
 		Poetry bietet außerdem Funktionen zum Packen und Veröffentlichen von Paketen.
-		\paragraph{title}
+		\paragraph{MyPy} Wie in Sektion \ref{sec:py-characteristics} beschrieben, werden Typen von Objekten während der Laufzeit nicht geprüft. Es ist beispielsweise möglich, eine Funktion, die einen Zahlenwert fordert, mit einem String aufzurufen. Die richtige Funktion des Programms ist damit nicht mehr sichergestellt. Das Verifizieren von Software ist somit extrem schwierig, da jede Funktion darauf angewiesen ist, dass sie von anderen Funktionen richtig aufgerufen wird. MyPy ist ein Paket, das eine statische Codeanalyse durchführt und sicherstellt, dass Type Hints eingehalten werden.
+		
 	
 \section{weitere Technologien}
 	\subsection{Open API Specification}
